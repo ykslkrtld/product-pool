@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
-import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
+import { fetchFail, fetchStart, loginSuccess, registerSuccess, fetchEnd } from "../features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -21,20 +21,49 @@ const useApiRequest = () => {
         userData
       );
       disPatch(loginSuccess(data));
-      toastSuccessNotify("Login başarılı");
+      toastSuccessNotify("Giriş başarılı");
       navigate("/stock")
     } catch (error) {
       disPatch(fetchFail());
-      toastErrorNotify("Login başarısız oldu");
+      toastErrorNotify("Giriş başarısız oldu");
       console.log(error);
     }
   }
-  const register = async () => {
-    
+
+  const register = async (userData) => {
+    disPatch(fetchStart());
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/users`,
+        userData
+      );
+      disPatch(registerSuccess(data));
+      toastSuccessNotify("Kayıt başarılı");
+      navigate("/")
+    } catch (error) {
+      disPatch(fetchFail());
+      toastErrorNotify("Kayıt başarısız oldu");
+      console.log(error);
+    }
   }
 
 
-  const logout = async () => {}
+  const logout = async () => {
+    disPatch(fetchStart());
+
+    try {
+      const { data } = await axios(
+        `${process.env.REACT_APP_BASE_URL}/auth/logout`
+      );
+      disPatch(fetchEnd());
+      toastSuccessNotify("Çıkış başarılı");
+      navigate("/")
+    } catch (error) {
+      disPatch(fetchFail());
+      toastErrorNotify("Giriş başarısız oldu");
+      console.log(error);
+    }
+  }
 
 
   return {login, register, logout }

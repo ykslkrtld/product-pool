@@ -135,7 +135,7 @@ const Register = () => {
                     id="lastName"
                     type="text"
                     variant="outlined"
-                    value={values.firstName}
+                    value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.lastName && Boolean(errors.lastName)}
