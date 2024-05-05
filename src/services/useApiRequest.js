@@ -29,7 +29,11 @@ const useApiRequest = () => {
       console.log(error);
     }
   }
-  const register = async () => {}
+  const register = async () => {
+    
+  }
+
+
   const logout = async () => {}
 
 
