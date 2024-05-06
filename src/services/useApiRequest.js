@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
-import { fetchFail, fetchStart, loginSuccess, registerSuccess, fetchEnd } from "../features/authSlice";
+import { fetchFail, fetchStart, loginSuccess, registerSuccess, logoutSuccess } from "../features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -39,7 +39,7 @@ const useApiRequest = () => {
       );
       disPatch(registerSuccess(data));
       toastSuccessNotify("Kayıt başarılı");
-      navigate("/")
+      navigate("/stock")
     } catch (error) {
       disPatch(fetchFail());
       toastErrorNotify("Kayıt başarısız oldu");
@@ -52,10 +52,10 @@ const useApiRequest = () => {
     disPatch(fetchStart());
 
     try {
-      const { data } = await axios(
+      await axios(
         `${process.env.REACT_APP_BASE_URL}/auth/logout`
       );
-      disPatch(fetchEnd());
+      disPatch(logoutSuccess());
       toastSuccessNotify("Çıkış başarılı");
       navigate("/")
     } catch (error) {
