@@ -27,13 +27,13 @@ const Register = () => {
       .required("Email zorunludur"),
     password: string()
       .required("Şifre zorunludur")
-      .min(8, "Şifre en az 8 karakterli olmalıdır")
-      .max(12, "Şifre en fazla 12 karakterli olmalıdır")
-      .matches(/\d+/, "Şifre en az 1 rakam içermelidir")
-      // .matches(/[0-9]/, "Şifre en az 1 rakam içermelidir")
       .matches(/[a-z]/, "Şifre en az 1 küçük harf içermelidir")
       .matches(/[A-Z]/, "Şifre en az 1 büyük harf içermelidir")
-      .matches(/[@$!%*?&]/, "Şifre @$!%*?& birini içermelidir"),
+      .matches(/\d+/, "Şifre en az 1 rakam içermelidir")
+      // .matches(/[0-9]/, "Şifre en az 1 rakam içermelidir")
+      .matches(/[@$!%*?&]/, "Şifre @$!%*?& birini içermelidir")
+      .min(8, "Şifre en az 8 karakterli olmalıdır")
+      .max(12, "Şifre en fazla 12 karakterli olmalıdır"),
   });
 
   return (
