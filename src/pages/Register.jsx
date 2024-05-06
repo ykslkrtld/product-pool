@@ -18,10 +18,15 @@ const Register = () => {
   let registerSchema = object({
     username: string()
       .required("Kullanıcı adı zorunludur")
+      .matches(/^[a-zA-Z]+$/, "Kullanıcı adı sadece harf içermelidir")
       .min(4, "Kullanıcı adı en az 4 karakterli olmalıdır")
       .max(12, "Kullanıcı adı en fazla 12 karakterli olmalıdır"),
-    firstName: string().required("Ad zorunludur"),
-    lastName: string().required("Soyad zorunludur"),
+    firstName: string()
+      .required("Ad zorunludur")
+      .matches(/^[a-zA-Z]+$/, "Ad sadece harf içermelidir"),
+    lastName: string()
+      .required("Soyad zorunludur")
+      .matches(/^[a-zA-Z]+$/, "Soyad sadece harf içermelidir"),
     email: string()
       .email("Geçerli bir mail giriniz")
       .required("Email zorunludur"),
