@@ -1,14 +1,15 @@
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { fetchFail, fetchStart, loginSuccess, registerSuccess, logoutSuccess } from "../features/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
 // Custom Hook
 const useApiRequest = () => {
   const disPatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {token} = useSelector((state) => state.auth )
 
    const login = async (userData) => {
     // const BASE_URL = "https://10114.fullstack.clarusway.com"
@@ -50,14 +51,13 @@ const useApiRequest = () => {
 
   const logout = async () => {
     disPatch(fetchStart());
-
     try {
-      await axios(
-        `${process.env.REACT_APP_BASE_URL}/auth/logout`
-      );
+      await axios(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
+        headers: {Authorization: `Token ${token}`}
+      });
       disPatch(logoutSuccess());
       toastSuccessNotify("Çıkış başarılı");
-      navigate("/")
+      // navigate("/")
     } catch (error) {
       disPatch(fetchFail());
       toastErrorNotify("Giriş başarısız oldu");

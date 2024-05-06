@@ -13,7 +13,7 @@ import { object, string } from "yup";
 import useApiRequest from "../services/useApiRequest";
 
 const Register = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { register } = useApiRequest();
   let registerSchema = object({
     username: string()
