@@ -55,7 +55,7 @@ const MenuListComp = () => {
             key={index}
             disablePadding
             onClick={() => navigate(item.path)}
-            sx={{color:"white", "& .MuiSvgIcon-root": {color:"white"}}}
+            sx={{color:"white", "& .MuiSvgIcon-root": {color:"white"}, ":hover": {color:"darkorange", "& .MuiSvgIcon-root": {color:"darkorange"}} }}
           >
             <ListItemButton>
               <ListItemIcon>{item.iconName}</ListItemIcon>

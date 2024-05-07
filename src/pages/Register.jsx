@@ -6,7 +6,7 @@ import image from "../assets/result.svg";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import TextField from "@mui/material/TextField";
 import { object, string } from "yup";
@@ -88,12 +88,6 @@ const Register = () => {
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
-              //TODO
-              //? POST (Login)
-              //? Toastify
-              //? Global state güncellenmesi
-              //? form resetleme
-              //? navigate
 
               register(values);
               actions.resetForm();

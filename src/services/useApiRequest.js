@@ -1,7 +1,7 @@
 // import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { fetchFail, fetchStart, loginSuccess, registerSuccess, logoutSuccess } from "../features/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useAxios from "./useAxios";
 
@@ -61,7 +61,7 @@ const useApiRequest = () => {
       // });
       await axiosToken("/auth/logout")
       disPatch(logoutSuccess());
-      toastSuccessNotify("Çıkış başarılı");
+      toastSuccessNotify("Çıkış başarılı"); 
       // navigate("/")
     } catch (error) {
       disPatch(fetchFail());
