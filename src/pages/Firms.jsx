@@ -17,11 +17,25 @@ import FirmEditModal from "../components/FirmEditModal";
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
   const { firms } = useSelector((state) => state.getDatas);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState({});
 
   useEffect(() => {
     getDatas("firms");
   }, []);
+
+  const handleEdit = (firmId) => {
+    setOpen((prevState) => ({
+      ...prevState,
+      [firmId]: true,
+    }));
+  };
+
+  const handleCloseModal = (firmId) => {
+    setOpen((prevState) => ({
+      ...prevState,
+      [firmId]: false,
+    }));
+  };
 
   return (
     <Container>
@@ -64,12 +78,17 @@ const Firms = () => {
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
                 <Button onClick={() => {delDatas("firms", firm._id).then(()=> getDatas("firms")) }}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
-                <Button onClick={()=> setOpen(true)}><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>
-                <FirmEditModal open={open} setOpen={setOpen} {...firm} />
-              </CardActions>
+                <Button onClick={()=> handleEdit(firm._id)}><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>              </CardActions>
             </CardContent>
+            {open[firm._id] && (
+              <FirmEditModal
+                key={firm._id}
+                open={open[firm._id]}
+                setOpen={(value) => handleCloseModal(firm._id)}
+                {...firm}
+              />
+            )}
           </Card>
-          
         ))}
       </Grid>
     </Container>
