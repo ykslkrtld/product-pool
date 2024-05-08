@@ -12,10 +12,12 @@ import { Container, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalComp from "../components/ModalComp";
+import FirmEditModal from "../components/FirmEditModal";
 
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
   const { firms } = useSelector((state) => state.getDatas);
+  const [open, setOpen] = useState()
 
   useEffect(() => {
     getDatas("firms");
@@ -31,9 +33,7 @@ const Firms = () => {
       >
         Firms
       </Typography>
-
       <ModalComp />
-
       <Grid
         container
         justifyContent="center"
@@ -64,10 +64,12 @@ const Firms = () => {
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
                 <Button onClick={() => {delDatas("firms", firm._id).then(()=> getDatas("firms")) }}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
-                <Button><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>
+                <Button onClick={()=> setOpen(true)}><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>
+                <FirmEditModal open={open} setOpen={setOpen} id={firm._id} />
               </CardActions>
             </CardContent>
           </Card>
+          
         ))}
       </Grid>
     </Container>

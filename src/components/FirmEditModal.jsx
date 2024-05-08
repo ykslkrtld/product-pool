@@ -19,8 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function ModalComp() {
-  const [open, setOpen] = React.useState(false);
+export default function FirmEditModal({open, setOpen, id}) {
   const handleClose = () => setOpen(false);
 
   const [firmInfo, setFirmInfo] = useState({
@@ -30,7 +29,7 @@ export default function ModalComp() {
     image: "",
   });
 
-  const { postDatas, getDatas } = useStockRequest();
+  const { editDatas, getDatas } = useStockRequest();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,16 +41,16 @@ export default function ModalComp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postDatas("firms", firmInfo).then(() => getDatas("firms"));
+    editDatas("firms", firmInfo, id).then(() => getDatas("firms"));
     setFirmInfo({ name: "", phone: "", address: "", image: "" });
-    setOpen(false);
-  };
+    setOpen(false)  
+};
 
   return (
     <div>
-      <Button variant="contained" onClick={()=> setOpen(true)}>
+      {/* <Button variant="contained" onClick={handleOpen}>
         NEW FIRM
-      </Button>
+      </Button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -112,7 +111,7 @@ export default function ModalComp() {
               type="url"
             />
             <Button variant="contained" type="submit">
-              ADD FIRM
+              UPDATE FIRM
             </Button>
           </Box>
         </Fade>
