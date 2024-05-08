@@ -19,14 +19,13 @@ const style = {
   p: 4,
 };
 
-export default function FirmEditModal({open, setOpen, id}) {
-  const handleClose = () => setOpen(false);
+export default function FirmEditModal({open, setOpen, name, phone, address, image, _id}) {
 
   const [firmInfo, setFirmInfo] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    image: "",
+    name,
+    phone,
+    address,
+    image,
   });
 
   const { editDatas, getDatas } = useStockRequest();
@@ -41,8 +40,7 @@ export default function FirmEditModal({open, setOpen, id}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editDatas("firms", firmInfo, id).then(() => getDatas("firms"));
-    setFirmInfo({ name: "", phone: "", address: "", image: "" });
+    editDatas("firms", firmInfo, _id).then(() => getDatas("firms"));
     setOpen(false)  
 };
 
@@ -55,7 +53,7 @@ export default function FirmEditModal({open, setOpen, id}) {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={()=> setOpen(false)}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -79,7 +77,7 @@ export default function FirmEditModal({open, setOpen, id}) {
               label="Firm Name"
               variant="outlined"
               value={firmInfo.name}
-              onChange={handleChange} // onChange işlevini ekleyin
+              onChange={handleChange}
               required
             />
             <TextField

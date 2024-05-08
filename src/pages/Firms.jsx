@@ -17,7 +17,7 @@ import FirmEditModal from "../components/FirmEditModal";
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
   const { firms } = useSelector((state) => state.getDatas);
-  const [open, setOpen] = useState()
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     getDatas("firms");
@@ -65,7 +65,7 @@ const Firms = () => {
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
                 <Button onClick={() => {delDatas("firms", firm._id).then(()=> getDatas("firms")) }}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
                 <Button onClick={()=> setOpen(true)}><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>
-                <FirmEditModal open={open} setOpen={setOpen} id={firm._id} />
+                <FirmEditModal open={open} setOpen={setOpen} {...firm} />
               </CardActions>
             </CardContent>
           </Card>

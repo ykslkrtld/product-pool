@@ -21,7 +21,6 @@ const style = {
 
 export default function ModalComp() {
   const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
 
   const [firmInfo, setFirmInfo] = useState({
     name: "",
@@ -56,7 +55,7 @@ export default function ModalComp() {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={()=> setOpen(false)}        
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -80,7 +79,7 @@ export default function ModalComp() {
               label="Firm Name"
               variant="outlined"
               value={firmInfo.name}
-              onChange={handleChange} // onChange işlevini ekleyin
+              onChange={handleChange} 
               required
             />
             <TextField
