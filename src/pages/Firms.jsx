@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
 import * as React from "react";
@@ -11,10 +11,13 @@ import Typography from "@mui/material/Typography";
 import { Container, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ModalComp from "../components/ModalComp";
 
 const Firms = () => {
-  const { getDatas } = useStockRequest();
+  const { getDatas, delDatas } = useStockRequest();
   const { firms } = useSelector((state) => state.getDatas);
+  const [open, setOpen] = useState(false); // Modalın açık/kapalı durumunu yönetmek için bir durum değişkeni
+
   useEffect(() => {
     getDatas("firms");
   }, []);
@@ -29,9 +32,15 @@ const Firms = () => {
       >
         Firms
       </Typography>
-      <Button variant="contained" color="success" size="small">
+
+      {/* "YENİ FİRMA" düğmesi doğrudan modalı açacak */}
+      <Button onClick={() => setOpen(true)} variant="contained" color="success" size="small">
         NEW FIRM
       </Button>
+
+      {/* ModalComp bileşeni ile modalı açık/kapalı durumu */}
+      <ModalComp open={open} handleClose={() => setOpen(false)} />
+
       <Grid
         container
         justifyContent="center"
@@ -40,7 +49,7 @@ const Firms = () => {
         spacing={2}
       >
         {firms.map((firm) => (
-          <Card sx={{ width: 300, padding: "1rem", paddingBottom:"0" }} key={firm.id}>
+          <Card sx={{ width: 300, padding: "1rem", paddingBottom: "0" }} key={firm._id}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {firm.name}
@@ -48,27 +57,27 @@ const Firms = () => {
               <Typography variant="body2" color="text.secondary">
                 {firm.address}
               </Typography>
-            <CardMedia
-              sx={{ height: 140, objectFit: "contain" }}
-              image={firm?.image}
-              component="img"
-              // height={"300px"}
-            />
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              textAlign="center"
-            >
-              {firm?.phone}
-            </Typography>
-            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-              <DeleteIcon sx={{ ":hover": { color: "red" } }} />
-              <EditIcon sx={{ ":hover": { color: "red" } }} />
-            </CardActions>
+              <CardMedia
+                sx={{ height: 140, objectFit: "contain" }}
+                image={firm?.image}
+                component="img"
+              />
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                textAlign="center"
+              >
+                {firm?.phone}
+              </Typography>
+              <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                <Button onClick={() => delDatas("firms", firm._id)}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
+                <Button><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>
+              </CardActions>
             </CardContent>
           </Card>
         ))}
       </Grid>
+      <ModalComp open={open} setOpen={setOpen} />
     </Container>
   );
 };

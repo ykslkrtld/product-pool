@@ -23,6 +23,11 @@ const getDataSlice = createSlice({
         state[payload.key] = payload.data
         state.error = false
       },
+      delDataSuccess: (state, { payload }) => {
+        state.loading = false;
+        state[payload.key] = state[payload.key].filter(item => item._id !== payload.id);
+        state.error = false;
+    },
       fetchFail: (state) => {
         state.loading = false
         state.error = true
@@ -30,6 +35,6 @@ const getDataSlice = createSlice({
   }
 });
 
-export const {fetchStart, getDataSuccess, fetchFail } = getDataSlice.actions
+export const {fetchStart, getDataSuccess, fetchFail, delDataSuccess } = getDataSlice.actions
 
 export default getDataSlice.reducer
