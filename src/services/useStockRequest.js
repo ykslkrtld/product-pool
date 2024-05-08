@@ -4,7 +4,6 @@ import {
   fetchFail,
   fetchStart,
   getDataSuccess,
-  delDataSuccess,
 } from "../features/getDataSlice";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
@@ -16,8 +15,7 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       const {
-        data: { data },
-      } = await axiosToken(`/${endpoint}`);
+        data: { data }} = await axiosToken(`/${endpoint}`);
       console.log(data);
       dispatch(getDataSuccess({ data, key: endpoint }));
     } catch (error) {
@@ -30,7 +28,6 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${endpoint}/${id}`);
-      dispatch(delDataSuccess({ key: endpoint, id }));
       toastSuccessNotify("Silme işlemi başarılı");
     } catch (error) {
       dispatch(fetchFail());
@@ -39,7 +36,18 @@ const useStockRequest = () => {
     }
   };
 
-  return { getDatas, delDatas };
+  const postDatas = async (endpoint, firmData) => { // data parametresini ekleyin
+    dispatch(fetchStart());
+    try {
+      await axiosToken.post(`/${endpoint}`, firmData); // data'yı isteğe ekleyin
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
+  
+  
+  return { getDatas, delDatas, postDatas };
 };
 
 export default useStockRequest;

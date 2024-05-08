@@ -4,6 +4,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
+import { useState } from "react";
+import useStockRequest from "../services/useStockRequest";
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -17,14 +20,45 @@ const style = {
   p: 4,
 };
 
-export default function ModalComp({ open, setOpen }) {
+export default function ModalComp() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [firmInfo, setFirmInfo] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    image: "",
+  });
+
+  const { postDatas, getDatas } = useStockRequest();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFirmInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postDatas("firms", firmInfo).then(() => getDatas("firms"));
+    setFirmInfo({ name: "", phone: "", address: "", image: "" });
+    handleClose(); // Modal'ı kapatın
+  };
+
   return (
     <div>
+      <Button variant="contained" onClick={handleOpen}>
+        NEW FIRM
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -34,12 +68,21 @@ export default function ModalComp({ open, setOpen }) {
         }}
       >
         <Fade in={open}>
-          <Box sx={style} display="flex" flexDirection="column" gap="1rem" component="form">
+          <Box
+            sx={style}
+            component="form"
+            onSubmit={handleSubmit}
+            display="flex"
+            flexDirection="column"
+            gap="1rem"
+          >
             <TextField
               id="name"
               name="name"
               label="Firm Name"
               variant="outlined"
+              value={firmInfo.name}
+              onChange={handleChange} // onChange işlevini ekleyin
               required
             />
             <TextField
@@ -47,22 +90,32 @@ export default function ModalComp({ open, setOpen }) {
               name="phone"
               label="Phone"
               variant="outlined"
+              value={firmInfo.phone}
+              onChange={handleChange}
+              required
             />
             <TextField
               id="address"
               name="address"
               label="Address"
               variant="outlined"
-              required 
+              value={firmInfo.address}
+              onChange={handleChange}
+              required
             />
             <TextField
               id="image"
               name="image"
               label="Image"
               variant="outlined"
-              required type="url"
+              value={firmInfo.image}
+              onChange={handleChange}
+              required
+              type="url"
             />
-      <Button variant="contained">ADD FIRM</Button>
+            <Button variant="contained" type="submit">
+              ADD FIRM
+            </Button>
           </Box>
         </Fade>
       </Modal>

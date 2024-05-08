@@ -16,7 +16,6 @@ import ModalComp from "../components/ModalComp";
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
   const { firms } = useSelector((state) => state.getDatas);
-  const [open, setOpen] = useState(false); // Modalın açık/kapalı durumunu yönetmek için bir durum değişkeni
 
   useEffect(() => {
     getDatas("firms");
@@ -33,13 +32,7 @@ const Firms = () => {
         Firms
       </Typography>
 
-      {/* "YENİ FİRMA" düğmesi doğrudan modalı açacak */}
-      <Button onClick={() => setOpen(true)} variant="contained" color="success" size="small">
-        NEW FIRM
-      </Button>
-
-      {/* ModalComp bileşeni ile modalı açık/kapalı durumu */}
-      <ModalComp open={open} handleClose={() => setOpen(false)} />
+      <ModalComp />
 
       <Grid
         container
@@ -70,14 +63,13 @@ const Firms = () => {
                 {firm?.phone}
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                <Button onClick={() => delDatas("firms", firm._id)}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
+                <Button onClick={() => {delDatas("firms", firm._id).then(()=> getDatas("firms")) }}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
                 <Button><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>
               </CardActions>
             </CardContent>
           </Card>
         ))}
       </Grid>
-      <ModalComp open={open} setOpen={setOpen} />
     </Container>
   );
 };
