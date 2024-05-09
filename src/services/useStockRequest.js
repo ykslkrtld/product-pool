@@ -25,36 +25,36 @@ const useStockRequest = () => {
   };
 
   const delDatas = async (endpoint, id) => {
-    dispatch(fetchStart());
+    // dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${endpoint}/${id}`);
       toastSuccessNotify("Silme işlemi başarılı");
     } catch (error) {
-      dispatch(fetchFail());
+      // dispatch(fetchFail());
       toastErrorNotify("Silme işlemi başarısız oldu");
       console.log(error);
     }
   };
 
   const postDatas = async (endpoint, datas) => {
-    dispatch(fetchStart());
+    // dispatch(fetchStart());
     try {
       await axiosToken.post(`/${endpoint}`, datas);
       toastSuccessNotify("Ekleme işlemi başarılı");
     } catch (error) {
-      dispatch(fetchFail());
+      // dispatch(fetchFail());
       toastErrorNotify("Ekleme işlemi başarısız oldu");
       console.log(error);
     }
   };
 
   const patchDatas = async (endpoint, datas, id) => {
-    dispatch(fetchStart());
+    // dispatch(fetchStart());
     try {
       await axiosToken.patch(`/${endpoint}/${id}`, datas);
       toastSuccessNotify("Düzenleme işlemi başarılı");
     } catch (error) {
-      dispatch(fetchFail());
+      // dispatch(fetchFail());
       toastErrorNotify("Düzenleme işlemi başarısız oldu");
       console.log(error);
     }
