@@ -19,9 +19,9 @@ const style = {
   p: 4,
 };
 
-export default function FirmEditModal({open, setOpen, name, phone, address, image, _id}) {
+export default function BrandEditModal({open, setOpen, name, phone, address, image, _id}) {
 
-  const [firmInfo, setFirmInfo] = useState({
+  const [brandInfo, setBrandInfo] = useState({
     name,
     phone,
     address,
@@ -32,7 +32,7 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFirmInfo((prevInfo) => ({
+    setBrandInfo((prevInfo) => ({
       ...prevInfo,
       [name]: value,
     }));
@@ -40,15 +40,12 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("firms", firmInfo, _id).then(() => getDatas("firms"));
+    patchDatas("brands", brandInfo, _id).then(() => getDatas("brands"));
     setOpen(false)  
 };
 
   return (
     <div>
-      {/* <Button variant="contained" onClick={handleOpen}>
-        NEW FIRM
-      </Button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -74,27 +71,9 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
             <TextField
               id="name"
               name="name"
-              label="Firm Name"
+              label="Brand Name"
               variant="outlined"
-              value={firmInfo.name}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              id="phone"
-              name="phone"
-              label="Phone"
-              variant="outlined"
-              value={firmInfo.phone}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              id="address"
-              name="address"
-              label="Address"
-              variant="outlined"
-              value={firmInfo.address}
+              value={brandInfo.name}
               onChange={handleChange}
               required
             />
@@ -103,13 +82,13 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
               name="image"
               label="Image"
               variant="outlined"
-              value={firmInfo.image}
+              value={brandInfo.image}
               onChange={handleChange}
               required
               type="url"
             />
             <Button variant="contained" type="submit">
-              UPDATE FIRM
+              UPDATE BRAND
             </Button>
           </Box>
         </Fade>

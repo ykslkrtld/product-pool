@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { Container, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import ModalComp from "../components/ModalComp";
+import FirmModalComp from "../components/FirmModalComp";
 import FirmEditModal from "../components/FirmEditModal";
 
 const Firms = () => {
@@ -47,7 +47,7 @@ const Firms = () => {
       >
         Firms
       </Typography>
-      <ModalComp />
+      <FirmModalComp />
       <Grid
         container
         justifyContent="center"
@@ -56,7 +56,10 @@ const Firms = () => {
         spacing={2}
       >
         {firms.map((firm) => (
-          <Card sx={{ width: 300, padding: "1rem", paddingBottom: "0" }} key={firm._id}>
+          <Card
+            sx={{ width: 300, padding: "1rem", paddingBottom: "0" }}
+            key={firm._id}
+          >
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {firm.name}
@@ -77,8 +80,17 @@ const Firms = () => {
                 {firm?.phone}
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                <Button onClick={() => {delDatas("firms", firm._id).then(()=> getDatas("firms")) }}><DeleteIcon sx={{ ":hover": { color: "red" } }} /></Button>
-                <Button onClick={()=> handleEdit(firm._id)}><EditIcon sx={{ ":hover": { color: "red" } }} /></Button>              </CardActions>
+                <Button
+                  onClick={() => {
+                    delDatas("firms", firm._id).then(() => getDatas("firms"));
+                  }}
+                >
+                  <DeleteIcon sx={{ ":hover": { color: "red" } }} />
+                </Button>
+                <Button onClick={() => handleEdit(firm._id)}>
+                  <EditIcon sx={{ ":hover": { color: "red" } }} />
+                </Button>
+              </CardActions>
             </CardContent>
             {open[firm._id] && (
               <FirmEditModal

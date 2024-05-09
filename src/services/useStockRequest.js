@@ -36,20 +36,22 @@ const useStockRequest = () => {
     }
   };
 
-  const postDatas = async (endpoint, firmData) => {
+  const postDatas = async (endpoint, datas) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.post(`/${endpoint}`, firmData);
+      await axiosToken.post(`/${endpoint}`, datas);
+      toastSuccessNotify("Ekleme işlemi başarılı");
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify("Ekleme işlemi başarısız oldu");
       console.log(error);
     }
   };
 
-  const editDatas = async (endpoint, firmData, id) => {
+  const patchDatas = async (endpoint, datas, id) => {
     dispatch(fetchStart());
     try {
-      await axiosToken.patch(`/${endpoint}/${id}`, firmData);
+      await axiosToken.patch(`/${endpoint}/${id}`, datas);
       toastSuccessNotify("Düzenleme işlemi başarılı");
     } catch (error) {
       dispatch(fetchFail());
@@ -59,7 +61,7 @@ const useStockRequest = () => {
   };
   
   
-  return { getDatas, delDatas, postDatas, editDatas };
+  return { getDatas, delDatas, postDatas, patchDatas };
 };
 
 export default useStockRequest;
