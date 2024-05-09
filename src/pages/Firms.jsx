@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FirmModalComp from "../components/FirmModalComp";
 import FirmEditModal from "../components/FirmEditModal";
+import Tooltip from '@mui/material/Tooltip';
 
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
@@ -80,16 +81,16 @@ const Firms = () => {
                 {firm?.phone}
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-                <Button
-                  onClick={() => {
-                    delDatas("firms", firm._id).then(() => getDatas("firms"));
-                  }}
-                >
+              <Tooltip title="Delete" arrow>
+                <Button onClick={() => {delDatas("firms", firm._id).then(() => getDatas("firms"));}}>
                   <DeleteIcon sx={{ ":hover": { color: "red" } }} />
                 </Button>
+              </Tooltip>
+              <Tooltip title="Edit" arrow>
                 <Button onClick={() => handleEdit(firm._id)}>
                   <EditIcon sx={{ ":hover": { color: "red" } }} />
                 </Button>
+              </Tooltip>
               </CardActions>
             </CardContent>
             {open[firm._id] && (
