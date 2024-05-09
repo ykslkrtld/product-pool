@@ -14,9 +14,7 @@ const useStockRequest = () => {
   const getDatas = async (endpoint) => {
     dispatch(fetchStart());
     try {
-      const {
-        data: { data }} = await axiosToken(`/${endpoint}`);
-      console.log(data);
+      const {data: { data }} = await axiosToken(`/${endpoint}`);
       dispatch(getDataSuccess({ data, endpoint }));
     } catch (error) {
       dispatch(fetchFail());
