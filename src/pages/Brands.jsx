@@ -13,6 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import BrandModalComp from "../components/BrandModalComp";
 import BrandEditModal from "../components/BrandEditModal";
 import Tooltip from '@mui/material/Tooltip';
+import { iconStyle } from "../styles/globalStyles";
 
 const Brands = () => {
   const { getDatas, delDatas } = useStockRequest();
@@ -68,10 +69,10 @@ const Brands = () => {
               />
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <Tooltip title="Delete" arrow>
-                <DeleteIcon onClick={() => {delDatas("brands", brand._id)}} sx={{ ":hover": { color: "red", cursor:"pointer" } }} />
+                <DeleteIcon onClick={() => {delDatas("brands", brand._id)}} sx={iconStyle} />
               </Tooltip>
               <Tooltip title="Edit" arrow>
-                <EditIcon onClick={()=> handleEdit(brand._id)} sx={{ ":hover": { color: "red" }, cursor:"pointer" }} />
+                <EditIcon onClick={()=> handleEdit(brand._id)} sx={iconStyle} />
               </Tooltip>
                 </CardActions>
             </CardContent>

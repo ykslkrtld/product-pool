@@ -12,6 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import FirmModalComp from "../components/FirmModalComp";
 import FirmEditModal from "../components/FirmEditModal";
 import Tooltip from '@mui/material/Tooltip';
+import { iconStyle } from "../styles/globalStyles";
 
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
@@ -79,10 +80,10 @@ const Firms = () => {
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <Tooltip title="Delete" arrow>
-                  <DeleteIcon onClick={() => {delDatas("firms", firm._id)}} sx={{ ":hover": { color: "red", cursor:"pointer" } }} />
+                  <DeleteIcon onClick={() => {delDatas("firms", firm._id)}} sx={iconStyle} />
               </Tooltip>
               <Tooltip title="Edit" arrow>
-                  <EditIcon onClick={() => handleEdit(firm._id)} sx={{ ":hover": { color: "red", cursor:"pointer" } }} />
+                  <EditIcon onClick={() => handleEdit(firm._id)} sx={iconStyle} />
               </Tooltip>
               </CardActions>
             {open[firm._id] && (
