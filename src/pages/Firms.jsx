@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -58,21 +56,20 @@ const Firms = () => {
       >
         {firms.map((firm) => (
           <Card
-            sx={{ width: 300, padding: "1rem", paddingBottom: "0" }}
+            sx={{ width: 300, height:350, padding: "1rem", paddingBottom: "0", display:"flex", flexDirection:"column", justifyContent:"space-around", alignItems:"center" }}
             key={firm._id}
           >
-            <CardContent>
+              <CardMedia
+                sx={{ height: 140, objectFit: "contain" }}
+                image={firm?.image}
+                component="img"
+              />
               <Typography gutterBottom variant="h5" component="div">
                 {firm.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {firm.address}
               </Typography>
-              <CardMedia
-                sx={{ height: 140, objectFit: "contain" }}
-                image={firm?.image}
-                component="img"
-              />
               <Typography
                 variant="body2"
                 color="text.secondary"
@@ -82,17 +79,12 @@ const Firms = () => {
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <Tooltip title="Delete" arrow>
-                <Button onClick={() => {delDatas("firms", firm._id).then(() => getDatas("firms"));}}>
-                  <DeleteIcon sx={{ ":hover": { color: "red" } }} />
-                </Button>
+                  <DeleteIcon onClick={() => {delDatas("firms", firm._id).then(() => getDatas("firms"));}} sx={{ ":hover": { color: "red" } }} />
               </Tooltip>
               <Tooltip title="Edit" arrow>
-                <Button onClick={() => handleEdit(firm._id)}>
-                  <EditIcon sx={{ ":hover": { color: "red" } }} />
-                </Button>
+                  <EditIcon onClick={() => handleEdit(firm._id)} sx={{ ":hover": { color: "red" } }} />
               </Tooltip>
               </CardActions>
-            </CardContent>
             {open[firm._id] && (
               <FirmEditModal
                 key={firm._id}
