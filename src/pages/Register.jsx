@@ -11,6 +11,9 @@ import { Formik, Form } from "formik";
 import TextField from "@mui/material/TextField";
 import { object, string } from "yup";
 import useApiRequest from "../services/useApiRequest";
+import { useState } from "react";
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Register = () => {
   // const navigate = useNavigate();
@@ -40,6 +43,9 @@ const Register = () => {
       .min(8, "Şifre en az 8 karakterli olmalıdır")
       .max(12, "Şifre en fazla 12 karakterli olmalıdır"),
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <Container maxWidth="lg">
@@ -153,16 +159,29 @@ const Register = () => {
                     helperText={touched.email && errors.email}
                   />
                   <TextField
-                    label="password"
+                    label="Password"
                     name="password"
                     id="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     variant="outlined"
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
+                    InputProps={{ 
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                   <Button
                     type="submit"

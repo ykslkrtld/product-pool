@@ -7,11 +7,13 @@ import image from "../assets/result.svg";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button, IconButton, InputAdornment } from "@mui/material";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
 // import { login } from "../services/useApiRequest";
 import useApiRequest from "../services/useApiRequest";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
   const {login} = useApiRequest()
@@ -29,6 +31,9 @@ const Login = () => {
       .min(8, "Şifre en az 8 karakterli olmalıdır")
       .max(12, "Şifre en fazla 12 karakterli olmalıdır"),
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <Container maxWidth="lg">
@@ -106,16 +111,29 @@ const Login = () => {
                     helperText={touched.email && errors.email}
                   />
                   <TextField
-                    label="password"
+                    label="Password"
                     name="password"
                     id="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     variant="outlined"
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
+                    InputProps={{ 
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                   <Button
                     variant="contained"
