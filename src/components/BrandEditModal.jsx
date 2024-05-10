@@ -19,12 +19,10 @@ const style = {
   p: 4,
 };
 
-const BrandEditModal = ({open, setOpen, name, phone, address, image, _id}) => {
+const BrandEditModal = ({open, setOpen, name, image, _id}) => {
 
   const [brandInfo, setBrandInfo] = useState({
     name,
-    phone,
-    address,
     image,
   });
 

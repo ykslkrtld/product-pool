@@ -43,8 +43,6 @@ const BrandModalComp = () => {
   useEffect(() => {
     setBrandInfo({
       name: "",
-      phone: "",
-      address: "",
       image: "",
     });
   }, [open]);
