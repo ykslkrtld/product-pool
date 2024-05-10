@@ -27,7 +27,7 @@ export default function BrandModalComp() {
     image: "",
   });
 
-  const { postDatas, getDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +39,7 @@ export default function BrandModalComp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postDatas("brands", brandInfo).then(() => getDatas("brands"));
+    postDatas("brands", brandInfo);
     setBrandInfo({ name: "", image: "" });
     handleClose();
   };

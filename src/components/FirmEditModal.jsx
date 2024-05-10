@@ -28,7 +28,7 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
     image,
   });
 
-  const { patchDatas, getDatas } = useStockRequest();
+  const { patchDatas } = useStockRequest();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +40,7 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("firms", firmInfo, _id).then(() => getDatas("firms"));
+    patchDatas("firms", firmInfo, _id);
     setOpen(false)  
 };
 

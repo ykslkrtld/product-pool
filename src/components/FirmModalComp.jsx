@@ -29,7 +29,7 @@ export default function ModalComp() {
     image: "",
   });
 
-  const { postDatas, getDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +41,7 @@ export default function ModalComp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postDatas("firms", firmInfo).then(() => getDatas("firms"));
+    postDatas("firms", firmInfo);
     setFirmInfo({ name: "", phone: "", address: "", image: "" });
     handleClose();
   };

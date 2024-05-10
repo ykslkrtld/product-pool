@@ -79,10 +79,10 @@ const Firms = () => {
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <Tooltip title="Delete" arrow>
-                  <DeleteIcon onClick={() => {delDatas("firms", firm._id).then(() => getDatas("firms"));}} sx={{ ":hover": { color: "red" } }} />
+                  <DeleteIcon onClick={() => {delDatas("firms", firm._id)}} sx={{ ":hover": { color: "red", cursor:"pointer" } }} />
               </Tooltip>
               <Tooltip title="Edit" arrow>
-                  <EditIcon onClick={() => handleEdit(firm._id)} sx={{ ":hover": { color: "red" } }} />
+                  <EditIcon onClick={() => handleEdit(firm._id)} sx={{ ":hover": { color: "red", cursor:"pointer" } }} />
               </Tooltip>
               </CardActions>
             {open[firm._id] && (

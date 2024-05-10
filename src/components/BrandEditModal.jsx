@@ -28,7 +28,7 @@ export default function BrandEditModal({open, setOpen, name, phone, address, ima
     image,
   });
 
-  const { patchDatas, getDatas } = useStockRequest();
+  const { patchDatas } = useStockRequest();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +40,7 @@ export default function BrandEditModal({open, setOpen, name, phone, address, ima
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("brands", brandInfo, _id).then(() => getDatas("brands"));
+    patchDatas("brands", brandInfo, _id);
     setOpen(false)  
 };
 
