@@ -33,7 +33,6 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <Container maxWidth="lg">
@@ -126,7 +125,7 @@ const Login = () => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
+                            onClick={()=> setShowPassword((show) => !show)}
                             edge="end"
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
