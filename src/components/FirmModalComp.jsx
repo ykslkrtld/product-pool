@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function ModalComp() {
+const FirmModalComp =() => {
   const [open, setOpen] = React.useState(false);
 
   const [firmInfo, setFirmInfo] = useState({
@@ -31,14 +31,10 @@ export default function ModalComp() {
 
   const { postDatas } = useStockRequest();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFirmInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-  };
-
+    const handleChange = (e) => {
+      setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value })
+    }
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("firms", firmInfo);
@@ -130,3 +126,4 @@ export default function ModalComp() {
     </div>
   );
 }
+export default FirmModalComp

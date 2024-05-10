@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function FirmEditModal({open, setOpen, name, phone, address, image, _id}) {
+const FirmEditModal = ({open, setOpen, name, phone, address, image, _id}) => {
 
   const [firmInfo, setFirmInfo] = useState({
     name,
@@ -31,12 +31,8 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
   const { patchDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFirmInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-  };
+    setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,3 +113,5 @@ export default function FirmEditModal({open, setOpen, name, phone, address, imag
     </div>
   );
 }
+
+export default FirmEditModal

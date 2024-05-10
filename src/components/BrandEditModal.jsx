@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function BrandEditModal({open, setOpen, name, phone, address, image, _id}) {
+const BrandEditModal = ({open, setOpen, name, phone, address, image, _id}) => {
 
   const [brandInfo, setBrandInfo] = useState({
     name,
@@ -31,12 +31,8 @@ export default function BrandEditModal({open, setOpen, name, phone, address, ima
   const { patchDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBrandInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-  };
+    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -96,3 +92,5 @@ export default function BrandEditModal({open, setOpen, name, phone, address, ima
     </div>
   );
 }
+
+export default BrandEditModal

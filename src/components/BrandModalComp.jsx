@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function BrandModalComp() {
+const BrandModalComp = () => {
   const [open, setOpen] = React.useState(false);
 
   const [brandInfo, setBrandInfo] = useState({
@@ -30,12 +30,8 @@ export default function BrandModalComp() {
   const { postDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBrandInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-  };
+    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -109,3 +105,4 @@ export default function BrandModalComp() {
     </div>
   );
 }
+export default BrandModalComp
