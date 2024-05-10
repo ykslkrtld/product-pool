@@ -43,19 +43,30 @@ export default function ModalComp() {
     e.preventDefault();
     postDatas("firms", firmInfo).then(() => getDatas("firms"));
     setFirmInfo({ name: "", phone: "", address: "", image: "" });
-    setOpen(false);
+    handleClose();
   };
+
+  const handleOpen = () => {
+    setOpen(true);
+    setFirmInfo({ name: "", phone: "", address: "", image: "" }); 
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setFirmInfo({ name: "", phone: "", address: "", image: "" }); 
+  };
+
 
   return (
     <div>
-      <Button variant="contained" onClick={()=> setOpen(true)}>
+      <Button variant="contained" onClick={handleOpen}>
         NEW FIRM
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={()=> setOpen(false)}        
+        onClose={handleClose}          
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{

@@ -41,19 +41,29 @@ export default function BrandModalComp() {
     e.preventDefault();
     postDatas("brands", brandInfo).then(() => getDatas("brands"));
     setBrandInfo({ name: "", image: "" });
+    handleClose();
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+    setBrandInfo({ name: "", image: "" }); 
+  };
+
+  const handleClose = () => {
     setOpen(false);
+    setBrandInfo({ name: "", image: "" }); 
   };
 
   return (
     <div>
-      <Button variant="contained" onClick={()=> setOpen(true)}>
+      <Button variant="contained" onClick={handleOpen}>
         NEW BRAND
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={()=> setOpen(false)}        
+        onClose={handleClose}        
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
