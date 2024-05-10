@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useStockRequest from "../services/useStockRequest";
 
 const style = {
@@ -19,8 +19,8 @@ const style = {
   p: 4,
 };
 
-const FirmModalComp =() => {
-  const [open, setOpen] = React.useState(false);
+const FirmModalComp = () => {
+  const [open, setOpen] = useState(false);
 
   const [firmInfo, setFirmInfo] = useState({
     name: "",
@@ -31,38 +31,36 @@ const FirmModalComp =() => {
 
   const { postDatas } = useStockRequest();
 
-    const handleChange = (e) => {
-      setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value })
-    }
- 
+  const handleChange = (e) => {
+    setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("firms", firmInfo);
     setFirmInfo({ name: "", phone: "", address: "", image: "" });
-    handleClose();
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-    setFirmInfo({ name: "", phone: "", address: "", image: "" }); 
-  };
-
-  const handleClose = () => {
     setOpen(false);
-    setFirmInfo({ name: "", phone: "", address: "", image: "" }); 
   };
 
+  useEffect(() => {
+    setFirmInfo({
+      name: "",
+      phone: "",
+      address: "",
+      image: "",
+    });
+  }, [open]);
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button variant="contained" onClick={() => setOpen(true)}>
         NEW FIRM
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}          
+        onClose={() => setOpen(false)}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -86,7 +84,7 @@ const FirmModalComp =() => {
               label="Firm Name"
               variant="outlined"
               value={firmInfo.name}
-              onChange={handleChange} 
+              onChange={handleChange}
               required
             />
             <TextField
@@ -125,5 +123,5 @@ const FirmModalComp =() => {
       </Modal>
     </div>
   );
-}
-export default FirmModalComp
+};
+export default FirmModalComp;

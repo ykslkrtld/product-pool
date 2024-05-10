@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useStockRequest from "../services/useStockRequest";
 
 const style = {
@@ -20,7 +20,7 @@ const style = {
 };
 
 const BrandModalComp = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const [brandInfo, setBrandInfo] = useState({
     name: "",
@@ -30,36 +30,35 @@ const BrandModalComp = () => {
   const { postDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value })
-  }
+    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("brands", brandInfo);
     setBrandInfo({ name: "", image: "" });
-    handleClose();
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-    setBrandInfo({ name: "", image: "" }); 
-  };
-
-  const handleClose = () => {
     setOpen(false);
-    setBrandInfo({ name: "", image: "" }); 
   };
+
+  useEffect(() => {
+    setBrandInfo({
+      name: "",
+      phone: "",
+      address: "",
+      image: "",
+    });
+  }, [open]);
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button variant="contained" onClick={() => setOpen(true)}>
         NEW BRAND
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}        
+        onClose={() => setOpen(false)}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -83,7 +82,7 @@ const BrandModalComp = () => {
               label="Brand Name"
               variant="outlined"
               value={brandInfo.name}
-              onChange={handleChange} 
+              onChange={handleChange}
               required
             />
             <TextField
@@ -104,5 +103,5 @@ const BrandModalComp = () => {
       </Modal>
     </div>
   );
-}
-export default BrandModalComp
+};
+export default BrandModalComp;
