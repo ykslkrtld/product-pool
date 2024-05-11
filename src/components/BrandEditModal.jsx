@@ -19,8 +19,9 @@ const style = {
   p: 4,
 };
 
-const BrandEditModal = ({open, setOpen, name, image, _id}) => {
+const BrandEditModal = ({open, setOpen, brand}) => {
 
+  const{name, image, _id} = brand
   const [brandInfo, setBrandInfo] = useState({
     name,
     image,
@@ -38,13 +39,21 @@ const BrandEditModal = ({open, setOpen, name, image, _id}) => {
     setOpen(false)  
 };
 
+const handleClose = () => {
+  setBrandInfo({
+    name,
+    image,
+  });
+  setOpen(false);
+};
+
   return (
     <div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={()=> setOpen(false)}
+        onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{

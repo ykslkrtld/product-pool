@@ -19,7 +19,9 @@ const style = {
   p: 4,
 };
 
-const FirmEditModal = ({open, setOpen, name, phone, address, image, _id}) => {
+const FirmEditModal = ({open, setOpen, firm}) => {
+
+  const {name, phone, address, image, _id} = firm
 
   const [firmInfo, setFirmInfo] = useState({
     name,
@@ -40,16 +42,23 @@ const FirmEditModal = ({open, setOpen, name, phone, address, image, _id}) => {
     setOpen(false)  
 };
 
+const handleClose = () => {
+  setFirmInfo({
+    name,
+    phone,
+    address,
+    image,
+  });
+  setOpen(false);
+};
+
   return (
     <div>
-      {/* <Button variant="contained" onClick={handleOpen}>
-        NEW FIRM
-      </Button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={()=> setOpen(false)}
+        onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{

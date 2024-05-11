@@ -11,31 +11,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FirmModalComp from "../components/FirmModalComp";
 import FirmEditModal from "../components/FirmEditModal";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
   const { firms } = useSelector((state) => state.getDatas);
-  const [open, setOpen] = useState({});
+  const [open, setOpen] = useState(false);
+  const [selectedFirm, setSelectedFirm] = useState(null);
 
   useEffect(() => {
     getDatas("firms");
   }, []);
-
-  const handleEdit = (firmId) => {
-    setOpen((prevState) => ({
-      ...prevState,
-      [firmId]: true,
-    }));
-  };
-
-  const handleCloseModal = (firmId) => {
-    setOpen((prevState) => ({
-      ...prevState,
-      [firmId]: false,
-    }));
-  };
 
   return (
     <Container>
@@ -56,10 +43,19 @@ const Firms = () => {
         spacing={2}
       >
         {firms.map((firm) => (
-          <Card
-            sx={{ width: 300, height:350, padding: "1rem", paddingBottom: "0", display:"flex", flexDirection:"column", justifyContent:"space-around", alignItems:"center" }}
-            key={firm._id}
-          >
+            <Card
+              sx={{
+                width: 300,
+                height: 350,
+                padding: "1rem",
+                paddingBottom: "0",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+              key={firm._id}
+            >
               <CardMedia
                 sx={{ height: 140, objectFit: "contain" }}
                 image={firm?.image}
@@ -79,22 +75,28 @@ const Firms = () => {
                 {firm?.phone}
               </Typography>
               <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-              <Tooltip title="Delete" arrow>
-                  <DeleteIcon onClick={() => {delDatas("firms", firm._id)}} sx={iconStyle} />
-              </Tooltip>
-              <Tooltip title="Edit" arrow>
-                  <EditIcon onClick={() => handleEdit(firm._id)} sx={iconStyle} />
-              </Tooltip>
+                <Tooltip title="Delete" arrow>
+                  <DeleteIcon
+                    onClick={() => {delDatas("firms", firm._id);}}
+                    sx={iconStyle}
+                  />
+                </Tooltip>
+                <Tooltip title="Edit" arrow>
+                  <EditIcon
+                    sx={iconStyle}
+                    onClick={() => {
+                      setOpen(true);
+                      setSelectedFirm(firm._id);
+                    }}
+                  />
+                </Tooltip>
               </CardActions>
-            {open[firm._id] && (
               <FirmEditModal
-                key={firm._id}
-                open={open[firm._id]}
-                setOpen={(value) => handleCloseModal(firm._id)}
-                {...firm}
+                open={open && selectedFirm === firm._id}
+                setOpen={setOpen}
+                firm={firm}
               />
-            )}
-          </Card>
+            </Card>
         ))}
       </Grid>
     </Container>

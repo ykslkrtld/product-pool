@@ -18,25 +18,11 @@ import { iconStyle } from "../styles/globalStyles";
 const Brands = () => {
   const { getDatas, delDatas } = useStockRequest();
   const { brands } = useSelector((state) => state.getDatas);
-  const [open, setOpen] = useState({});
+  const [open, setOpen] = useState({});const [selectedBrand, setSelectedBrand] = useState(null);
 
   useEffect(() => {
     getDatas("brands");
   }, []);
-
-  const handleEdit = (brand) => {
-    setOpen((prevState) => ({
-      ...prevState,
-      [brand]: true,
-    }));
-  };
-
-  const handleCloseModal = (brand) => {
-    setOpen((prevState) => ({
-      ...prevState,
-      [brand]: false,
-    }));
-  };
 
   return (
     <Container>
@@ -57,7 +43,7 @@ const Brands = () => {
         spacing={2}
       >
         {brands.map((brand) => (
-          <Card sx={{ width: 300, padding: "1rem", paddingBottom: "0" }} key={brand._id}>
+          <Card key={brand._id} sx={{ width: 300, padding: "1rem", paddingBottom: "0" }}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {brand.name}
@@ -72,18 +58,16 @@ const Brands = () => {
                 <DeleteIcon onClick={() => {delDatas("brands", brand._id)}} sx={iconStyle} />
               </Tooltip>
               <Tooltip title="Edit" arrow>
-                <EditIcon onClick={()=> handleEdit(brand._id)} sx={iconStyle} />
+                <EditIcon onClick={() => {
+                      setOpen(true);
+                      setSelectedBrand(brand._id);
+                    }} sx={iconStyle} />
               </Tooltip>
                 </CardActions>
             </CardContent>
-            {open[brand._id] && (
-              <BrandEditModal
-                key={brand._id}
-                open={open[brand._id]}
-                setOpen={(value) => handleCloseModal(brand._id)}
-                {...brand}
-              />
-            )}
+              <BrandEditModal open={open && selectedBrand === brand._id}
+                setOpen={setOpen}
+                brand={brand}/>
           </Card>
         ))}
       </Grid>
