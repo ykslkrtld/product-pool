@@ -42,14 +42,15 @@ const FirmModalComp = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
+  const handleClose = () => {
     setFirmInfo({
       name: "",
       phone: "",
       address: "",
       image: "",
-    });
-  }, [open]);
+    })
+    setOpen(false)
+  }
 
   return (
     <div>
@@ -60,7 +61,7 @@ const FirmModalComp = () => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{

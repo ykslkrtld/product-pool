@@ -39,13 +39,13 @@ const BrandModalComp = () => {
     setBrandInfo({ name: "", image: "" });
     setOpen(false);
   };
-
-  useEffect(() => {
+  const handleClose = () => {
     setBrandInfo({
       name: "",
       image: "",
-    });
-  }, [open]);
+    })
+    setOpen(false)
+  }
 
   return (
     <div>
@@ -56,7 +56,7 @@ const BrandModalComp = () => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
