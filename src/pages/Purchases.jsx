@@ -13,7 +13,7 @@ import { iconStyle } from "../styles/globalStyles";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
-const Products = () => {
+const Purchases = () => {
   const { getDatas, delDatas, patchDatas } = useStockRequest();
   const { purchases } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState(false);
@@ -138,4 +138,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Purchases;
