@@ -1,67 +1,103 @@
-import * as React from "react"
-import Box from "@mui/material/Box"
-import { DataGrid } from "@mui/x-data-grid"
+import { useEffect, useState } from "react";
+import useStockRequest from "../services/useStockRequest";
+import { useSelector } from "react-redux";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import { Container } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ProductModalComp from "../components/ProductModalComp";
+import Tooltip from "@mui/material/Tooltip";
+import { iconStyle } from "../styles/globalStyles";
+import Box from '@mui/material/Box';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "firstName",
-    headerName: "First name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
-  },
-]
+const Products = () => {
+  const { getDatas, delDatas } = useStockRequest();
+  const { products } = useSelector((state) => state.getDatas);
 
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 14 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 31 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 31 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 11 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-]
+  const columns = [
+    { field: 'id', headerName: 'ID', flex:1, headerAlign:"center", align:"center" },
+    {
+      field: 'category',
+      headerName: 'Category',
+      flex:1,
+      headerAlign:"center", 
+      align:"center"
+    },
+    {
+      field: 'brand',
+      headerName: 'Brand',
+      flex:1,
+      headerAlign:"center", 
+      align:"center"
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      flex:1,
+      headerAlign:"center", 
+      align:"center"
+    },
+    {
+      field: 'stock',
+      headerName: 'Stock',
+      // type: 'number',
+      flex:1,
+      headerAlign:"center", 
+      align:"center"
+    },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      flex:1,
+      headerAlign:"center", 
+      align:"center",
+        renderCell: (props) => (
+          <Tooltip title="Delete" arrow>
+            <DeleteIcon onClick={() => delDatas("products", props.row.id)} sx={iconStyle}/>
+          </Tooltip>
+      ),
+    },
+  ];
+  
+  const rows = products.map((product) => ({
+    id: product._id,
+    brand: product.brandId ? product.brandId.name : "N/A",
+    category: product.categoryId ? product.categoryId.name : "N/A",
+    name: product.name,
+    stock: product.quantity,
+  }));
 
-export default function Products() {
+  useEffect(() => {
+    getDatas("products");
+  }, []);
+
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <>
+    <Container sx={{mb:"1.5rem"}} >
+      <Typography
+        variant="subtitle1"
+        fontSize={"1.8rem"}
+        color={"red"}
+        my={"1rem"}
+      >
+        Products
+      </Typography>
+      <ProductModalComp/>
+      </Container>
+      <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
+      autoHeight
         rows={rows}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5,10,25,50,100]}
         checkboxSelection
         disableRowSelectionOnClick
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
+    </>
   )
 }
+
+export default Products;

@@ -1,22 +1,94 @@
-import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import useStockRequest from "../services/useStockRequest";
+import { useSelector } from "react-redux";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import { Container, Grid } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import PurchaseModalComp from "../components/PurchaseModalComp";
+import PurchaseEditModal from "../components/PurchaseEditModal";
+import Tooltip from "@mui/material/Tooltip";
+import { iconStyle } from "../styles/globalStyles";
+import Box from "@mui/material/Box";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
-const Purchases = () => {
-  const { getDatas } = useStockRequest();
+const Products = () => {
+  const { getDatas, delDatas, patchDatas } = useStockRequest();
   const { purchases } = useSelector((state) => state.getDatas);
-  console.log(purchases);
+  const [open, setOpen] = useState(false);
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
 
   const columns = [
-    { field: "date", headerName: "Date", width: 130 },
-    { field: "firm", headerName: "Firm", width: 130 },
-    { field: "brand", headerName: "Brand", width: 130 },
-    { field: "product", headerName: "Product", width: 130 },
-    { field: "quantity", headerName: "Quantity", width: 100 },
-    { field: "price", headerName: "Price", width: 100 },
-    { field: "amount", headerName: "Amount", width: 100 },
-    { field: "actions", headerName: "Actions", width: 100 },
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "firm",
+      headerName: "Firm",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "brand",
+      headerName: "Brand",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "product",
+      headerName: "Product",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (props) => (
+        <Tooltip title="Delete" arrow>
+          <DeleteIcon
+            onClick={() => delDatas("purchases", props.row.id)}
+            sx={iconStyle}
+          />
+          <EditIcon
+            onClick={() => {
+              setOpen(true);
+              setSelectedPurchase(props.row.id);
+            }}
+            sx={iconStyle}
+          />
+        </Tooltip>
+      ),
+    },
   ];
 
   const rows = purchases.map((purchase) => ({
@@ -30,25 +102,40 @@ const Purchases = () => {
     amount: purchase.amount,
   }));
 
-  React.useEffect(() => {
+  useEffect(() => {
     getDatas("purchases");
   }, []);
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        // checkboxSelection
-      />
-    </div>
+    <>
+      <Container sx={{ mb: "1.5rem" }}>
+        <Typography
+          variant="subtitle1"
+          fontSize={"1.8rem"}
+          color={"red"}
+          my={"1rem"}
+        >
+          Purchases
+        </Typography>
+        <PurchaseModalComp />
+      </Container>
+      <Box sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSizeOptions={[5, 10, 25, 50, 100]}
+          // checkboxSelection
+          disableRowSelectionOnClick
+          slots={{ toolbar: GridToolbar }}
+        />
+        <PurchaseEditModal
+          open={open}
+          setOpen={setOpen}
+          purchase={rows}
+        />
+      </Box>
+    </>
   );
 };
 
-export default Purchases;
+export default Products;
