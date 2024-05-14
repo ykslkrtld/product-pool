@@ -87,7 +87,7 @@ const Products = () => {
       </Container>
       <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-      autoHeight
+        autoHeight
         rows={rows}
         columns={columns}
         pageSizeOptions={[5,10,25,50,100]}

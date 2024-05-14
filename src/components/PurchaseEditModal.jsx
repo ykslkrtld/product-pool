@@ -22,7 +22,8 @@ const style = {
 
 const PurchaseEditModal = ({open, setOpen, purchase}) => {
 
-  const {firmId, brandId, productId, quantity, price, id} = purchase
+  let {firmId, brandId, productId, quantity, price, id} = purchase
+  
 
   const [purchaseInfo, setPurchaseInfo] = useState({
     firmId,

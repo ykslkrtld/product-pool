@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const Purchases = () => {
-  const { getDatas, delDatas, patchDatas } = useStockRequest();
+  const { getDatas, delDatas } = useStockRequest();
   const { purchases } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
@@ -74,6 +74,7 @@ const Purchases = () => {
       headerName: "Actions",
       flex: 1,
       renderCell: (props) => (
+        <>
         <Tooltip title="Delete" arrow>
           <DeleteIcon
             onClick={() => delDatas("purchases", props.row.id)}
@@ -87,19 +88,29 @@ const Purchases = () => {
             sx={iconStyle}
           />
         </Tooltip>
+        <PurchaseEditModal
+        open={open && selectedPurchase === props.row.id}
+        setOpen={setOpen}
+        purchase={props.row}
+      />
+      </>
       ),
     },
   ];
 
+
   const rows = purchases.map((purchase) => ({
     id: purchase._id,
     date: new Date(purchase.createdAt).toLocaleString(),
-    firm: purchase.firmId ? purchase.firmId.name : "N/A",
-    brand: purchase.brandId ? purchase.brandId.name : "N/A",
-    product: purchase.productId ? purchase.productId.name : "N/A",
+    firm: purchase.firmId.name,
+    brand:  purchase.brandId.name,
+    product: purchase.productId.name,
     quantity: purchase.quantity,
     price: purchase.price,
     amount: purchase.amount,
+    firmId: purchase.firmId._id,
+    brandId: purchase.brandId._id,
+    productId: purchase.productId._id
   }));
 
   useEffect(() => {
@@ -121,6 +132,7 @@ const Purchases = () => {
       </Container>
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
+          autoHeight
           rows={rows}
           columns={columns}
           pageSizeOptions={[5, 10, 25, 50, 100]}
@@ -128,11 +140,7 @@ const Purchases = () => {
           disableRowSelectionOnClick
           slots={{ toolbar: GridToolbar }}
         />
-        <PurchaseEditModal
-          open={open}
-          setOpen={setOpen}
-          purchase={rows}
-        />
+        
       </Box>
     </>
   );
