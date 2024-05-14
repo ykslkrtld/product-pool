@@ -11,7 +11,7 @@ import PurchaseEditModal from "../components/PurchaseEditModal";
 import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import Box from "@mui/material/Box";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 const Purchases = () => {
   const { getDatas, delDatas } = useStockRequest();
@@ -71,32 +71,37 @@ const Purchases = () => {
     },
     {
       field: "actions",
+      type: "actions",
       headerName: "Actions",
       flex: 1,
       headerAlign: "center",
       align: "center",
-      renderCell: (props) => (
-        <>
+      getActions: (props) => [
         <Tooltip title="Delete" arrow>
-          <DeleteIcon
-            onClick={() => delDatas("purchases", props.row.id)}
-            sx={iconStyle}
-          />
-          <EditIcon
-            onClick={() => {
-              setOpen(true);
-              setSelectedPurchase(props.row.id);
-            }}
-            sx={iconStyle}
-          />
-        </Tooltip>
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          onClick={() => delDatas("purchases", props.row.id)}
+          label="Delete"
+          sx={iconStyle}
+        />
+        </Tooltip>,
+        <Tooltip title="Edit" arrow>
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          onClick={() => {
+            setOpen(true);
+            setSelectedPurchase(props.row.id);
+          }}
+          label="Print"
+          sx={iconStyle}
+        />
+        </Tooltip>,
         <PurchaseEditModal
-        open={open && selectedPurchase === props.row.id}
-        setOpen={setOpen}
-        purchase={props.row}
-      />
-      </>
-      ),
+          open={open && selectedPurchase === props.row.id}
+          setOpen={setOpen}
+          purchase={props.row}
+        />,
+      ],
     },
   ];
 
@@ -142,7 +147,6 @@ const Purchases = () => {
           disableRowSelectionOnClick
           slots={{ toolbar: GridToolbar }}
         />
-        
       </Box>
     </>
   );

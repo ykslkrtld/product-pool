@@ -9,7 +9,7 @@ import ProductModalComp from "../components/ProductModalComp";
 import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
 
 const Products = () => {
   const { getDatas, delDatas } = useStockRequest();
@@ -47,16 +47,22 @@ const Products = () => {
       align:"center"
     },
     {
-      field: 'actions',
-      headerName: 'Actions',
-      flex:1,
-      headerAlign:"center", 
-      align:"center",
-        renderCell: (props) => (
-          <Tooltip title="Delete" arrow>
-            <DeleteIcon onClick={() => delDatas("products", props.row.id)} sx={iconStyle}/>
-          </Tooltip>
-      ),
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      getActions: (props) => [
+        <Tooltip title="Delete" arrow>
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          onClick={() => delDatas("products", props.row.id)}
+          label="Delete"
+          sx={iconStyle}
+        />
+        </Tooltip>
+      ],
     },
   ];
   
