@@ -76,6 +76,8 @@ const Products = () => {
 
   useEffect(() => {
     getDatas("products");
+    getDatas("categories");
+    getDatas("brands");
   }, []);
 
   return (

@@ -112,6 +112,8 @@ const Sales = () => {
 
   useEffect(() => {
     getDatas("sales");
+    getDatas("products");
+    getDatas("brands");
   }, []);
 
   return (

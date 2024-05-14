@@ -4,20 +4,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useStockRequest from "../services/useStockRequest";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { modalStyle } from "../styles/globalStyles";
 
 const FirmModalComp = () => {
   const [open, setOpen] = useState(false);
@@ -72,7 +61,7 @@ const FirmModalComp = () => {
       >
         <Fade in={open}>
           <Box
-            sx={style}
+            sx={modalStyle}
             component="form"
             onSubmit={handleSubmit}
             display="flex"

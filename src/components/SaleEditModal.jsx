@@ -4,27 +4,15 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { modalStyle } from "../styles/globalStyles";
 
 const SaleEditModal = ({open, setOpen, sale}) => {
 
-  let { brandId, productId, quantity, price, id} = sale
+  const { brandId, productId, quantity, price, id} = sale
   
-
   const [saleInfo, setSaleInfo] = useState({
     brandId,
     productId,
@@ -32,16 +20,9 @@ const SaleEditModal = ({open, setOpen, sale}) => {
     price
   });
 
-  useEffect(() => {
-    getDatas("sales");
-    getDatas("products");
-    getDatas("brands");
-  }, []);
-
   const { patchDatas, getDatas } = useStockRequest();
 
   const { brands, products } = useSelector((state) => state.getDatas);
-
 
   const handleChange = (e) => {
     setSaleInfo({ ...saleInfo, [e.target.name]: e.target.value })
@@ -80,7 +61,7 @@ const handleClose = () => {
       >
         <Fade in={open}>
           <Box
-            sx={style}
+            sx={modalStyle}
             component="form"
             onSubmit={handleSubmit}
             display="flex"

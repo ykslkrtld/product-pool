@@ -4,25 +4,14 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useStockRequest from "../services/useStockRequest";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { modalStyle } from "../styles/globalStyles";
 
 const PurchaseModalComp = () => {
   const [open, setOpen] = useState(false);
@@ -38,13 +27,6 @@ const PurchaseModalComp = () => {
   const { postDatas, getDatas } = useStockRequest();
 
   const { brands, products, firms } = useSelector((state) => state.getDatas);
-
-  useEffect(() => {
-    getDatas("purchases");
-    getDatas("products");
-    getDatas("firms");
-    getDatas("brands");
-  }, []);
 
   const handleChange = (e) => {
     setPurchaseInfo({ ...purchaseInfo, [e.target.name]: e.target.value });
@@ -88,7 +70,7 @@ const PurchaseModalComp = () => {
       >
         <Fade in={open}>
           <Box
-            sx={style}
+            sx={modalStyle}
             component="form"
             onSubmit={handleSubmit}
             display="flex"
