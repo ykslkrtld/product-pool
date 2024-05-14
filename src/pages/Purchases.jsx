@@ -3,7 +3,7 @@ import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PurchaseModalComp from "../components/PurchaseModalComp";
@@ -73,6 +73,8 @@ const Purchases = () => {
       field: "actions",
       headerName: "Actions",
       flex: 1,
+      headerAlign: "center",
+      align: "center",
       renderCell: (props) => (
         <>
         <Tooltip title="Delete" arrow>

@@ -66,6 +66,8 @@ const Sales = () => {
       field: "actions",
       headerName: "Actions",
       flex: 1,
+      headerAlign: "center",
+      align: "center",
       renderCell: (props) => (
         <>
         <Tooltip title="Delete" arrow>
