@@ -107,7 +107,6 @@ const Purchases = () => {
 
 
   const rows = purchases.map((purchase) => ({
-    id: purchase._id,
     date: new Date(purchase.createdAt).toLocaleString(),
     firm: purchase.firmId.name,
     brand:  purchase.brandId.name,
@@ -115,6 +114,7 @@ const Purchases = () => {
     quantity: purchase.quantity,
     price: purchase.price,
     amount: purchase.amount,
+    id: purchase._id,
     firmId: purchase.firmId._id,
     brandId: purchase.brandId._id,
     productId: purchase.productId._id

@@ -67,11 +67,11 @@ const Products = () => {
   ];
   
   const rows = products.map((product) => ({
-    id: product._id,
     brand: product.brandId ? product.brandId.name : "N/A",
     category: product.categoryId ? product.categoryId.name : "N/A",
     name: product.name,
     stock: product.quantity,
+    id: product._id,
   }));
 
   useEffect(() => {

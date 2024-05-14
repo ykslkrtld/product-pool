@@ -99,13 +99,13 @@ const Sales = () => {
   ];
 
   const rows = sales.map((sale) => ({
-    id: sale._id,
     date: new Date(sale.createdAt).toLocaleString(),
     brand: sale.brandId.name,
     product: sale.productId.name,
     quantity: sale.quantity,
     price: sale.price,
     amount: sale.amount,
+    id: sale._id,
     brandId: sale.brandId._id,
     productId: sale.productId._id,
   }));
