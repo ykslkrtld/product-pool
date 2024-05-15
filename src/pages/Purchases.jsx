@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 const Purchases = () => {
-  const { getDatas, delDatas } = useStockRequest();
+  const { getDatas, delDatas, patchDatas } = useStockRequest();
   const { purchases } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
