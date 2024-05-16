@@ -125,7 +125,7 @@ const Purchases = () => {
   }));
 
   useEffect(() => {
-    getDatas("purchase");
+    getDatas("purchases");
     getDatas("products");
     getDatas("firms");
     getDatas("brands");

@@ -82,7 +82,7 @@ const Products = () => {
   }));
 
   useEffect(() => {
-    getDatas("product");
+    getDatas("products");
     getDatas("categories");
     getDatas("brands");
     return () => {emptyDatas()}
