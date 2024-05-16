@@ -17,20 +17,29 @@ const getDataSlice = createSlice({
   reducers: {
     fetchStart: (state) => {
       state.loading = true;
+      state.error = false;
     },
     getDataSuccess: (state, { payload }) => {
       state.loading = false;
       state[payload.endpoint] = payload.data;
-      state.error = false;
     },
     fetchFail: (state) => {
       state.loading = false;
       state.error = true;
     },
+    emptyStates: (state) => {
+      state.firms = [];
+      state.products = [];
+      state.brands = [];
+      state.sales = [];
+      state.purchases = [];
+      state.categories = [];
+      },
+    },
   },
-});
+);
 
-export const { fetchStart, getDataSuccess, fetchFail } =
+export const { fetchStart, getDataSuccess, fetchFail, emptyStates } =
   getDataSlice.actions;
 
 export default getDataSlice.reducer;

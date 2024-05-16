@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
 import {
+  emptyStates,
   fetchFail,
   fetchStart,
   getDataSuccess,
@@ -23,46 +24,50 @@ const useStockRequest = () => {
   };
 
   const delDatas = async (endpoint, id) => {
-    // dispatch(fetchStart());
+    dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${endpoint}/${id}`);
       toastSuccessNotify("Silme işlemi başarılı");
       getDatas(endpoint)
     } catch (error) {
-      // dispatch(fetchFail());
+      dispatch(fetchFail());
       toastErrorNotify("Silme işlemi başarısız oldu");
       console.log(error);
     }
   };
 
   const postDatas = async (endpoint, datas) => {
-    // dispatch(fetchStart());
+    dispatch(fetchStart());
     try {
       await axiosToken.post(`/${endpoint}`, datas);
       toastSuccessNotify("Ekleme işlemi başarılı");
       getDatas(endpoint)
     } catch (error) {
-      // dispatch(fetchFail());
+      dispatch(fetchFail());
       toastErrorNotify("Ekleme işlemi başarısız oldu");
       console.log(error);
     }
   };
 
   const patchDatas = async (endpoint, datas, id) => {
-    // dispatch(fetchStart());
+    dispatch(fetchStart());
     try {
       await axiosToken.patch(`/${endpoint}/${id}`, datas);
       toastSuccessNotify("Düzenleme işlemi başarılı");
       getDatas(endpoint)
     } catch (error) {
-      // dispatch(fetchFail());
+      dispatch(fetchFail());
       toastErrorNotify("Düzenleme işlemi başarısız oldu");
       console.log(error);
     }
   };
+
+  const emptyDatas = () => {
+    dispatch(emptyStates())
+  }
   
   
-  return { getDatas, delDatas, postDatas, patchDatas };
+  return { getDatas, delDatas, postDatas, patchDatas, emptyDatas };
 };
 
 export default useStockRequest;

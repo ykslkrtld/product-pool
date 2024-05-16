@@ -12,10 +12,14 @@ import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import TableSkeleton, {
+  ErrorMessage,
+  NoDataMessage,
+} from "../components/DataFetchMessages"
 
 const Purchases = () => {
-  const { getDatas, delDatas, patchDatas } = useStockRequest();
-  const { purchases } = useSelector((state) => state.getDatas);
+  const { getDatas, delDatas, emptyDatas } = useStockRequest();
+  const { purchases, error, loading } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
 
@@ -121,10 +125,11 @@ const Purchases = () => {
   }));
 
   useEffect(() => {
-    getDatas("purchases");
+    getDatas("purchase");
     getDatas("products");
     getDatas("firms");
     getDatas("brands");
+    return () => {emptyDatas()}
   }, []);
 
   return (
@@ -140,6 +145,10 @@ const Purchases = () => {
         </Typography>
         <PurchaseModalComp />
       </Container>
+      {loading && <TableSkeleton />}
+      {error && <ErrorMessage />}
+      {!error && !loading && !purchases.length && <NoDataMessage />}
+      {!error && !loading && purchases.length > 0 && 
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           autoHeight
@@ -151,6 +160,7 @@ const Purchases = () => {
           slots={{ toolbar: GridToolbar }}
         />
       </Box>
+      }
     </>
   );
 };
