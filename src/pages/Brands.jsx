@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import { Container, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import BrandModalComp from "../components/BrandModalComp";
-import BrandEditModal from "../components/BrandEditModal";
+import BrandModalComp from "../components/brand/BrandModalComp";
+import BrandEditModal from "../components/brand/BrandEditModal";
 import Tooltip from '@mui/material/Tooltip';
 import { iconStyle } from "../styles/globalStyles";
 import { CardSkeleton,

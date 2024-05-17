@@ -5,43 +5,47 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../styles/globalStyles";
+import { modalStyle } from "../../styles/globalStyles";
 
-const ProductModalComp = () => {
+const PurchaseModalComp = () => {
   const [open, setOpen] = useState(false);
 
-  const [productInfo, setProductInfo] = useState({
-    categoryId: "",
+  const [purchaseInfo, setPurchaseInfo] = useState({
+    firmId: "",
     brandId: "",
-    name: "",
+    productId: "",
+    quantity: "",
+    price: ""
   });
 
   const { postDatas, getDatas } = useStockRequest();
 
-  const { brands, categories } = useSelector((state) => state.getDatas);
+  const { brands, products, firms } = useSelector((state) => state.getDatas);
 
   const handleChange = (e) => {
-    setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
+    setPurchaseInfo({ ...purchaseInfo, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postDatas("products", productInfo);
-    setProductInfo({ categoryId: "", brandId: "", name: "" });
+    postDatas("purchases", purchaseInfo);
+    setPurchaseInfo({ firmId: "", brandId: "", productId: "", quantity: "", price: ""});
     setOpen(false);
   };
 
   const handleClose = () => {
-    setProductInfo({
-        categoryId: "",
-        brandId: "",
-      name: "",
+    setPurchaseInfo({
+      firmId: "",
+      brandId: "",
+      productId: "",
+      quantity: "",
+      price: ""
     });
     setOpen(false);
   };
@@ -49,7 +53,7 @@ const ProductModalComp = () => {
   return (
     <div>
       <Button variant="contained" onClick={() => setOpen(true)}>
-        NEW PRODUCT
+        NEW PURCHASE
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -74,19 +78,19 @@ const ProductModalComp = () => {
             gap="1rem"
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <InputLabel id="demo-simple-select-label">Firm</InputLabel>
               <Select
-                name="categoryId"
+                name="firmId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={productInfo.categoryId}
-                label="Category"
+                value={purchaseInfo.firmId}
+                label="Firm"
                 onChange={handleChange}
                 required
               >
-                {categories?.map((category) => (
-                  <MenuItem key={category._id} value={category._id}>
-                    {category.name}
+                {firms?.map((firm) => (
+                  <MenuItem key={firm._id} value={firm._id}>
+                    {firm.name}
                   </MenuItem>
                 ))}
               </Select>
@@ -97,7 +101,7 @@ const ProductModalComp = () => {
                 name="brandId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={productInfo.brandId}
+                value={purchaseInfo.brandId}
                 label="Brand"
                 onChange={handleChange}
                 required
@@ -109,18 +113,45 @@ const ProductModalComp = () => {
                 ))}
               </Select>
             </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Product</InputLabel>
+              <Select
+                name="productId"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={purchaseInfo.productId}
+                label="Product"
+                onChange={handleChange}
+                required
+              >
+                {products?.map((product) => (
+                  <MenuItem key={product._id} value={product._id}>
+                    {product.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
             <TextField
-              id="name"
-              name="name"
-              label="Product Name"
+              id="quantity"
+              name="quantity"
+              label="Quantity"
               variant="outlined"
-              value={productInfo.name}
+              value={purchaseInfo.quantity}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              id="price"
+              name="price"
+              label="Price"
+              variant="outlined"
+              value={purchaseInfo.price}
               onChange={handleChange}
               required
             />
             <Button variant="contained" type="submit">
-              ADD PRODUCT
+              ADD PURCHASE
             </Button>
           </Box>
         </Fade>
@@ -128,4 +159,4 @@ const ProductModalComp = () => {
     </div>
   );
 };
-export default ProductModalComp;
+export default PurchaseModalComp;

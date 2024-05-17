@@ -3,51 +3,56 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../styles/globalStyles";
+import { modalStyle } from "../../styles/globalStyles";
 
-const PurchaseEditModal = ({open, setOpen, purchase}) => {
+const SaleModalComp = () => {
+  const [open, setOpen] = useState(false);
 
-  const {firmId, brandId, productId, quantity, price, id} = purchase
-  
-  const [purchaseInfo, setPurchaseInfo] = useState({
-    firmId,
-    brandId,
-    productId,
-    quantity,
-    price
+  const [saleInfo, setSaleInfo] = useState({
+    brandId: "",
+    productId: "",
+    quantity: "",
+    price: ""
   });
 
-  const { patchDatas, getDatas } = useStockRequest();
+  const { postDatas, getDatas } = useStockRequest();
 
-  const { brands, products, firms } = useSelector((state) => state.getDatas);
+  const { brands, products } = useSelector((state) => state.getDatas);
 
   const handleChange = (e) => {
-    setPurchaseInfo({ ...purchaseInfo, [e.target.name]: e.target.value })
-  }
+    setSaleInfo({ ...saleInfo, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("purchases", purchaseInfo, id);
-    setOpen(false)  
-};
+    postDatas("sales", saleInfo);
+    setSaleInfo({ brandId: "", productId: "", quantity: "", price: ""});
+    setOpen(false);
+  };
 
-const handleClose = () => {
-  setPurchaseInfo({
-    firmId,
-    brandId,
-    productId,
-    quantity,
-    price
-  });
-  setOpen(false);
-};
+  const handleClose = () => {
+    setSaleInfo({
+      brandId: "",
+      productId: "",
+      quantity: "",
+      price: ""
+    });
+    setOpen(false);
+  };
 
   return (
     <div>
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        NEW SALE
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -71,30 +76,12 @@ const handleClose = () => {
             gap="1rem"
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Firm</InputLabel>
-              <Select
-                name="firmId"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={purchaseInfo.firmId}
-                label="Firm"
-                onChange={handleChange}
-                required
-              >
-                {firms?.map((firm) => (
-                  <MenuItem key={firm._id} value={firm._id}>
-                    {firm.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Brand</InputLabel>
               <Select
                 name="brandId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={purchaseInfo.brandId}
+                value={saleInfo.brandId}
                 label="Brand"
                 onChange={handleChange}
                 required
@@ -112,7 +99,7 @@ const handleClose = () => {
                 name="productId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={purchaseInfo.productId}
+                value={saleInfo.productId}
                 label="Product"
                 onChange={handleChange}
                 required
@@ -130,7 +117,7 @@ const handleClose = () => {
               name="quantity"
               label="Quantity"
               variant="outlined"
-              value={purchaseInfo.quantity}
+              value={saleInfo.quantity}
               onChange={handleChange}
               required
             />
@@ -139,18 +126,17 @@ const handleClose = () => {
               name="price"
               label="Price"
               variant="outlined"
-              value={purchaseInfo.price}
+              value={saleInfo.price}
               onChange={handleChange}
               required
             />
             <Button variant="contained" type="submit">
-              UPDATE PURCHASE
+              ADD SALE
             </Button>
           </Box>
         </Fade>
       </Modal>
     </div>
   );
-}
-
-export default PurchaseEditModal
+};
+export default SaleModalComp;

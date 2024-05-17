@@ -5,7 +5,7 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ProductModalComp from "../components/ProductModalComp";
+import ProductModalComp from "../components/product/ProductModalComp";
 import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import Box from '@mui/material/Box';

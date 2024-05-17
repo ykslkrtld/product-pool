@@ -5,45 +5,43 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../styles/globalStyles";
+import { modalStyle } from "../../styles/globalStyles";
 
-const SaleModalComp = () => {
+const ProductModalComp = () => {
   const [open, setOpen] = useState(false);
 
-  const [saleInfo, setSaleInfo] = useState({
+  const [productInfo, setProductInfo] = useState({
+    categoryId: "",
     brandId: "",
-    productId: "",
-    quantity: "",
-    price: ""
+    name: "",
   });
 
   const { postDatas, getDatas } = useStockRequest();
 
-  const { brands, products } = useSelector((state) => state.getDatas);
+  const { brands, categories } = useSelector((state) => state.getDatas);
 
   const handleChange = (e) => {
-    setSaleInfo({ ...saleInfo, [e.target.name]: e.target.value });
+    setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postDatas("sales", saleInfo);
-    setSaleInfo({ brandId: "", productId: "", quantity: "", price: ""});
+    postDatas("products", productInfo);
+    setProductInfo({ categoryId: "", brandId: "", name: "" });
     setOpen(false);
   };
 
   const handleClose = () => {
-    setSaleInfo({
-      brandId: "",
-      productId: "",
-      quantity: "",
-      price: ""
+    setProductInfo({
+        categoryId: "",
+        brandId: "",
+      name: "",
     });
     setOpen(false);
   };
@@ -51,7 +49,7 @@ const SaleModalComp = () => {
   return (
     <div>
       <Button variant="contained" onClick={() => setOpen(true)}>
-        NEW SALE
+        NEW PRODUCT
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -76,12 +74,30 @@ const SaleModalComp = () => {
             gap="1rem"
           >
             <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select
+                name="categoryId"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={productInfo.categoryId}
+                label="Category"
+                onChange={handleChange}
+                required
+              >
+                {categories?.map((category) => (
+                  <MenuItem key={category._id} value={category._id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Brand</InputLabel>
               <Select
                 name="brandId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={saleInfo.brandId}
+                value={productInfo.brandId}
                 label="Brand"
                 onChange={handleChange}
                 required
@@ -93,45 +109,18 @@ const SaleModalComp = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Product</InputLabel>
-              <Select
-                name="productId"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={saleInfo.productId}
-                label="Product"
-                onChange={handleChange}
-                required
-              >
-                {products?.map((product) => (
-                  <MenuItem key={product._id} value={product._id}>
-                    {product.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
 
             <TextField
-              id="quantity"
-              name="quantity"
-              label="Quantity"
+              id="name"
+              name="name"
+              label="Product Name"
               variant="outlined"
-              value={saleInfo.quantity}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              id="price"
-              name="price"
-              label="Price"
-              variant="outlined"
-              value={saleInfo.price}
+              value={productInfo.name}
               onChange={handleChange}
               required
             />
             <Button variant="contained" type="submit">
-              ADD SALE
+              ADD PRODUCT
             </Button>
           </Box>
         </Fade>
@@ -139,4 +128,4 @@ const SaleModalComp = () => {
     </div>
   );
 };
-export default SaleModalComp;
+export default ProductModalComp;

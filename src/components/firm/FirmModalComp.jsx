@@ -5,44 +5,47 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
-import { modalStyle } from "../styles/globalStyles";
+import useStockRequest from "../../services/useStockRequest";
+import { modalStyle } from "../../styles/globalStyles";
 
-const FirmEditModal = ({open, setOpen, firm}) => {
-
-  const {name, phone, address, image, _id} = firm
+const FirmModalComp = () => {
+  const [open, setOpen] = useState(false);
 
   const [firmInfo, setFirmInfo] = useState({
-    name,
-    phone,
-    address,
-    image,
+    name: "",
+    phone: "",
+    address: "",
+    image: "",
   });
 
-  const { patchDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value })
-  }
+    setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("firms", firmInfo, _id);
-    setOpen(false)  
-};
+    postDatas("firms", firmInfo);
+    setFirmInfo({ name: "", phone: "", address: "", image: "" });
+    setOpen(false);
+  };
 
-const handleClose = () => {
-  setFirmInfo({
-    name,
-    phone,
-    address,
-    image,
-  });
-  setOpen(false);
-};
+  const handleClose = () => {
+    setFirmInfo({
+      name: "",
+      phone: "",
+      address: "",
+      image: "",
+    })
+    setOpen(false)
+  }
 
   return (
     <div>
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        NEW FIRM
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -103,13 +106,12 @@ const handleClose = () => {
               type="url"
             />
             <Button variant="contained" type="submit">
-              UPDATE FIRM
+              ADD FIRM
             </Button>
           </Box>
         </Fade>
       </Modal>
     </div>
   );
-}
-
-export default FirmEditModal
+};
+export default FirmModalComp;

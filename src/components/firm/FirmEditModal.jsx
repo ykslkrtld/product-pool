@@ -5,42 +5,44 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
-import { modalStyle } from "../styles/globalStyles";
+import useStockRequest from "../../services/useStockRequest";
+import { modalStyle } from "../../styles/globalStyles";
 
-const BrandModalComp = () => {
-  const [open, setOpen] = useState(false);
+const FirmEditModal = ({open, setOpen, firm}) => {
 
-  const [brandInfo, setBrandInfo] = useState({
-    name: "",
-    image: "",
+  const {name, phone, address, image, _id} = firm
+
+  const [firmInfo, setFirmInfo] = useState({
+    name,
+    phone,
+    address,
+    image,
   });
 
-  const { postDatas } = useStockRequest();
+  const { patchDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value });
-  };
+    setFirmInfo({ ...firmInfo, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postDatas("brands", brandInfo);
-    setBrandInfo({ name: "", image: "" });
-    setOpen(false);
-  };
-  const handleClose = () => {
-    setBrandInfo({
-      name: "",
-      image: "",
-    })
-    setOpen(false)
-  }
+    patchDatas("firms", firmInfo, _id);
+    setOpen(false)  
+};
+
+const handleClose = () => {
+  setFirmInfo({
+    name,
+    phone,
+    address,
+    image,
+  });
+  setOpen(false);
+};
 
   return (
     <div>
-      <Button variant="contained" onClick={() => setOpen(true)}>
-        NEW BRAND
-      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -66,9 +68,27 @@ const BrandModalComp = () => {
             <TextField
               id="name"
               name="name"
-              label="Brand Name"
+              label="Firm Name"
               variant="outlined"
-              value={brandInfo.name}
+              value={firmInfo.name}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              id="phone"
+              name="phone"
+              label="Phone"
+              variant="outlined"
+              value={firmInfo.phone}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              id="address"
+              name="address"
+              label="Address"
+              variant="outlined"
+              value={firmInfo.address}
               onChange={handleChange}
               required
             />
@@ -77,18 +97,19 @@ const BrandModalComp = () => {
               name="image"
               label="Image"
               variant="outlined"
-              value={brandInfo.image}
+              value={firmInfo.image}
               onChange={handleChange}
               required
               type="url"
             />
             <Button variant="contained" type="submit">
-              ADD BRAND
+              UPDATE FIRM
             </Button>
           </Box>
         </Fade>
       </Modal>
     </div>
   );
-};
-export default BrandModalComp;
+}
+
+export default FirmEditModal

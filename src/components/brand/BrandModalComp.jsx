@@ -5,40 +5,42 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
-import { modalStyle } from "../styles/globalStyles";
+import useStockRequest from "../../services/useStockRequest";
+import { modalStyle } from "../../styles/globalStyles";
 
-const BrandEditModal = ({open, setOpen, brand}) => {
+const BrandModalComp = () => {
+  const [open, setOpen] = useState(false);
 
-  const{name, image, _id} = brand
-  
   const [brandInfo, setBrandInfo] = useState({
-    name,
-    image,
+    name: "",
+    image: "",
   });
 
-  const { patchDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const handleChange = (e) => {
-    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value })
-  }
+    setBrandInfo({ ...brandInfo, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("brands", brandInfo, _id);
-    setOpen(false)  
-};
-
-const handleClose = () => {
-  setBrandInfo({
-    name,
-    image,
-  });
-  setOpen(false);
-};
+    postDatas("brands", brandInfo);
+    setBrandInfo({ name: "", image: "" });
+    setOpen(false);
+  };
+  const handleClose = () => {
+    setBrandInfo({
+      name: "",
+      image: "",
+    })
+    setOpen(false)
+  }
 
   return (
     <div>
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        NEW BRAND
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -81,13 +83,12 @@ const handleClose = () => {
               type="url"
             />
             <Button variant="contained" type="submit">
-              UPDATE BRAND
+              ADD BRAND
             </Button>
           </Box>
         </Fade>
       </Modal>
     </div>
   );
-}
-
-export default BrandEditModal
+};
+export default BrandModalComp;

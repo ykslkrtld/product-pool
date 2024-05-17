@@ -9,8 +9,8 @@ import Typography from "@mui/material/Typography";
 import { Container, Grid } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import FirmModalComp from "../components/FirmModalComp";
-import FirmEditModal from "../components/FirmEditModal";
+import FirmModalComp from "../components/firm/FirmModalComp";
+import FirmEditModal from "../components/firm/FirmEditModal";
 import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import { CardSkeleton,

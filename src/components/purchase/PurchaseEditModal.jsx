@@ -5,15 +5,16 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useState } from "react";
-import useStockRequest from "../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../styles/globalStyles";
+import { modalStyle } from "../../styles/globalStyles";
 
-const SaleEditModal = ({open, setOpen, sale}) => {
+const PurchaseEditModal = ({open, setOpen, purchase}) => {
 
-  const { brandId, productId, quantity, price, id} = sale
+  const {firmId, brandId, productId, quantity, price, id} = purchase
   
-  const [saleInfo, setSaleInfo] = useState({
+  const [purchaseInfo, setPurchaseInfo] = useState({
+    firmId,
     brandId,
     productId,
     quantity,
@@ -22,20 +23,21 @@ const SaleEditModal = ({open, setOpen, sale}) => {
 
   const { patchDatas, getDatas } = useStockRequest();
 
-  const { brands, products } = useSelector((state) => state.getDatas);
+  const { brands, products, firms } = useSelector((state) => state.getDatas);
 
   const handleChange = (e) => {
-    setSaleInfo({ ...saleInfo, [e.target.name]: e.target.value })
+    setPurchaseInfo({ ...purchaseInfo, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("sales", saleInfo, id);
+    patchDatas("purchases", purchaseInfo, id);
     setOpen(false)  
 };
 
 const handleClose = () => {
-    setSaleInfo({
+  setPurchaseInfo({
+    firmId,
     brandId,
     productId,
     quantity,
@@ -69,12 +71,30 @@ const handleClose = () => {
             gap="1rem"
           >
             <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Firm</InputLabel>
+              <Select
+                name="firmId"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={purchaseInfo.firmId}
+                label="Firm"
+                onChange={handleChange}
+                required
+              >
+                {firms?.map((firm) => (
+                  <MenuItem key={firm._id} value={firm._id}>
+                    {firm.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Brand</InputLabel>
               <Select
                 name="brandId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={saleInfo.brandId}
+                value={purchaseInfo.brandId}
                 label="Brand"
                 onChange={handleChange}
                 required
@@ -92,7 +112,7 @@ const handleClose = () => {
                 name="productId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={saleInfo.productId}
+                value={purchaseInfo.productId}
                 label="Product"
                 onChange={handleChange}
                 required
@@ -110,7 +130,7 @@ const handleClose = () => {
               name="quantity"
               label="Quantity"
               variant="outlined"
-              value={saleInfo.quantity}
+              value={purchaseInfo.quantity}
               onChange={handleChange}
               required
             />
@@ -119,12 +139,12 @@ const handleClose = () => {
               name="price"
               label="Price"
               variant="outlined"
-              value={saleInfo.price}
+              value={purchaseInfo.price}
               onChange={handleChange}
               required
             />
             <Button variant="contained" type="submit">
-              UPDATE SALE
+              UPDATE PURCHASE
             </Button>
           </Box>
         </Fade>
@@ -133,4 +153,4 @@ const handleClose = () => {
   );
 }
 
-export default SaleEditModal
+export default PurchaseEditModal
