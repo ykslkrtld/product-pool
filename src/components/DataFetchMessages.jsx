@@ -21,10 +21,14 @@ export const NoDataMessage = () => {
 export const CardSkeleton = () => {
   return (
     <Stack 
-      spacing={1} 
-      sx={{ mt: 3, display: 'flex', justifyContent: 'start', alignItems: 'center', height: '100vh' }}
+      direction="row"
+      flexWrap="wrap" 
+      spacing={3} 
+      sx={{ mt: 3, display: 'flex', justifyContent: 'center', alignItems: 'start', height: '100vh' }}
     >
-      <Skeleton variant="rectangular" width={275} height={375} />
+      <Skeleton variant="rectangular" width={275} height={350} />
+      <Skeleton variant="rectangular" width={275} height={350} />
+      <Skeleton variant="rectangular" width={275} height={350} />
     </Stack>
   )
 }
