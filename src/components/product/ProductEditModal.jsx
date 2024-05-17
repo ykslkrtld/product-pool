@@ -9,39 +9,36 @@ import useStockRequest from "../../services/useStockRequest";
 import { useSelector } from "react-redux";
 import { modalStyle } from "../../styles/globalStyles";
 
-const PurchaseEditModal = ({open, setOpen, purchase}) => {
+const ProductEditModal = ({open, setOpen, product}) => {
 
-  const {firmId, brandId, productId, quantity, price, id} = purchase
+  const { brandId, categoryId, id, name} = product
+  console.log(product)
   
-  const [purchaseInfo, setPurchaseInfo] = useState({
-    firmId,
+  const [productInfo, setProductInfo] = useState({
+    categoryId,
     brandId,
-    productId,
-    quantity,
-    price
+    name,
   });
 
   const { patchDatas } = useStockRequest();
 
-  const { brands, products, firms } = useSelector((state) => state.getDatas);
+  const { brands, categories } = useSelector((state) => state.getDatas);
 
   const handleChange = (e) => {
-    setPurchaseInfo({ ...purchaseInfo, [e.target.name]: e.target.value })
+    setProductInfo({ ...productInfo, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patchDatas("purchases", purchaseInfo, id);
+    patchDatas("products", productInfo, id);
     setOpen(false)  
 };
 
 const handleClose = () => {
-  setPurchaseInfo({
-    firmId,
+  setProductInfo({
+    categoryId,
     brandId,
-    productId,
-    quantity,
-    price
+    name,
   });
   setOpen(false);
 };
@@ -71,19 +68,19 @@ const handleClose = () => {
             gap="1rem"
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Firm</InputLabel>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
               <Select
-                name="firmId"
+                name="categoryId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={purchaseInfo.firmId}
-                label="Firm"
+                value={productInfo.categoryId}
+                label="Category"
                 onChange={handleChange}
                 required
               >
-                {firms?.map((firm) => (
-                  <MenuItem key={firm._id} value={firm._id}>
-                    {firm.name}
+                {categories?.map((category) => (
+                  <MenuItem key={category._id} value={category._id}>
+                    {category.name}
                   </MenuItem>
                 ))}
               </Select>
@@ -94,7 +91,7 @@ const handleClose = () => {
                 name="brandId"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={purchaseInfo.brandId}
+                value={productInfo.brandId}
                 label="Brand"
                 onChange={handleChange}
                 required
@@ -106,45 +103,17 @@ const handleClose = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Product</InputLabel>
-              <Select
-                name="productId"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={purchaseInfo.productId}
-                label="Product"
-                onChange={handleChange}
-                required
-              >
-                {products?.map((product) => (
-                  <MenuItem key={product._id} value={product._id}>
-                    {product.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
             <TextField
-              id="quantity"
-              name="quantity"
-              label="Quantity"
+              id="name"
+              name="name"
+              label="Product Name"
               variant="outlined"
-              value={purchaseInfo.quantity}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              id="price"
-              name="price"
-              label="Price"
-              variant="outlined"
-              value={purchaseInfo.price}
+              value={productInfo.name}
               onChange={handleChange}
               required
             />
             <Button variant="contained" type="submit">
-              UPDATE PURCHASE
+              UPDATE PRODUCT
             </Button>
           </Box>
         </Fade>
@@ -153,4 +122,4 @@ const handleClose = () => {
   );
 }
 
-export default PurchaseEditModal
+export default ProductEditModal
