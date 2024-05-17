@@ -18,9 +18,14 @@ export const NoDataMessage = () => {
   )
 }
 
-export const CardSkeleton = ({ children }) => {
+export const CardSkeleton = () => {
   return (
-      <Skeleton variant="rectangular">{children}</Skeleton>
+    <Stack 
+      spacing={1} 
+      sx={{ mt: 3, display: 'flex', justifyContent: 'start', alignItems: 'center', height: '100vh' }}
+    >
+      <Skeleton variant="rectangular" width={275} height={375} />
+    </Stack>
   )
 }
 

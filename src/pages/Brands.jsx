@@ -14,14 +14,19 @@ import BrandModalComp from "../components/BrandModalComp";
 import BrandEditModal from "../components/BrandEditModal";
 import Tooltip from '@mui/material/Tooltip';
 import { iconStyle } from "../styles/globalStyles";
+import { CardSkeleton,
+  ErrorMessage,
+  NoDataMessage,
+} from "../components/DataFetchMessages"
 
 const Brands = () => {
-  const { getDatas, delDatas } = useStockRequest();
-  const { brands } = useSelector((state) => state.getDatas);
+  const { getDatas, delDatas, emptyDatas } = useStockRequest();
+  const { brands, error, loading } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState({});const [selectedBrand, setSelectedBrand] = useState(null);
 
   useEffect(() => {
     getDatas("brands");
+    return () => {emptyDatas()}
   }, []);
 
   return (
@@ -35,6 +40,10 @@ const Brands = () => {
         Brands
       </Typography>
       <BrandModalComp />
+      {loading && <CardSkeleton/>}
+      {error && <ErrorMessage />}
+      {!error && !loading && !brands.length && <NoDataMessage />}
+      {!error && !loading && brands.length > 0 && 
       <Grid
         container
         justifyContent="center"
@@ -71,6 +80,7 @@ const Brands = () => {
           </Card>
         ))}
       </Grid>
+}
     </Container>
   );
 };

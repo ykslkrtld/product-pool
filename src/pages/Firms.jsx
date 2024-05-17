@@ -13,7 +13,7 @@ import FirmModalComp from "../components/FirmModalComp";
 import FirmEditModal from "../components/FirmEditModal";
 import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
-import CardSkeleton, {
+import { CardSkeleton,
   ErrorMessage,
   NoDataMessage,
 } from "../components/DataFetchMessages"
@@ -40,7 +40,7 @@ const Firms = () => {
         Firms
       </Typography>
       <FirmModalComp />
-      {loading && <CardSkeleton />}
+      {loading && <CardSkeleton/>}
       {error && <ErrorMessage />}
       {!error && !loading && !firms.length && <NoDataMessage />}
       {!error && !loading && firms.length > 0 && 
