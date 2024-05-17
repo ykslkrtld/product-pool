@@ -127,7 +127,7 @@ const Sales = () => {
         <Typography
           variant="subtitle1"
           fontSize={"1.8rem"}
-          color={"red"}
+          color={"darkorange"}
           my={"1rem"}
         >
           Sales

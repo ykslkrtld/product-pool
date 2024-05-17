@@ -1,5 +1,5 @@
 export const iconStyle = {
-  "&:hover": { color: "red", cursor: "pointer" },
+  "&:hover": { color: "darkorange", cursor: "pointer" },
 }
 
 export const modalStyle = {
