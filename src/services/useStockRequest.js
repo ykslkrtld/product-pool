@@ -62,12 +62,7 @@ const useStockRequest = () => {
     }
   };
 
-  const emptyDatas = () => {
-    dispatch(emptyStates())
-  }
-  
-  
-  return { getDatas, delDatas, postDatas, patchDatas, emptyDatas };
+  return { getDatas, delDatas, postDatas, patchDatas };
 };
 
 export default useStockRequest;

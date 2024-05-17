@@ -27,19 +27,11 @@ const getDataSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
-    emptyStates: (state) => {
-      state.firms = [];
-      state.products = [];
-      state.brands = [];
-      state.sales = [];
-      state.purchases = [];
-      state.categories = [];
-      },
     },
   },
 );
 
-export const { fetchStart, getDataSuccess, fetchFail, emptyStates } =
+export const { fetchStart, getDataSuccess, fetchFail } =
   getDataSlice.actions;
 
 export default getDataSlice.reducer;

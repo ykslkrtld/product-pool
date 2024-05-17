@@ -10,17 +10,11 @@ import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import Box from '@mui/material/Box';
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
-import TableSkeleton, {
-  ErrorMessage,
-  NoDataMessage,
-} from "../components/DataFetchMessages"
-
-
+import TableSkeleton, { NoDataMessage } from "../components/DataFetchMessages"
 
 const Products = () => {
-  const { getDatas, delDatas, emptyDatas } = useStockRequest();
-  const { products, error, loading } = useSelector((state) => state.getDatas);
-
+  const { getDatas, delDatas } = useStockRequest();
+  const { products, loading } = useSelector((state) => state.getDatas);
 
   const columns = [
     { field: 'id', headerName: 'ID', flex:1, headerAlign:"center", align:"center" },
@@ -48,7 +42,6 @@ const Products = () => {
     {
       field: 'stock',
       headerName: 'Stock',
-      // type: 'number',
       flex:1,
       headerAlign:"center", 
       align:"center"
@@ -85,7 +78,6 @@ const Products = () => {
     getDatas("products");
     getDatas("categories");
     getDatas("brands");
-    return () => {emptyDatas()}
   }, []);
 
   return (
@@ -102,9 +94,8 @@ const Products = () => {
       <ProductModalComp/>
       </Container>
       {loading && <TableSkeleton />}
-      {error && <ErrorMessage />}
-      {!error && !loading && !products.length && <NoDataMessage />}
-      {!error && !loading && products.length > 0 && 
+      {!loading && !products.length && <NoDataMessage />}
+      {!loading && products.length > 0 && 
       <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
         autoHeight

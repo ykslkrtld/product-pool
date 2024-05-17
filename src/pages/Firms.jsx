@@ -13,20 +13,16 @@ import FirmModalComp from "../components/firm/FirmModalComp";
 import FirmEditModal from "../components/firm/FirmEditModal";
 import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
-import { CardSkeleton,
-  ErrorMessage,
-  NoDataMessage,
-} from "../components/DataFetchMessages"
+import { CardSkeleton, NoDataMessage} from "../components/DataFetchMessages"
 
 const Firms = () => {
-  const { getDatas, delDatas, emptyDatas } = useStockRequest();
-  const { firms, error, loading } = useSelector((state) => state.getDatas);
+  const { getDatas, delDatas } = useStockRequest();
+  const { firms, loading } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState(false);
   const [selectedFirm, setSelectedFirm] = useState(null);
 
   useEffect(() => {
     getDatas("firms");
-    return () => {emptyDatas()}
   }, []);
 
   return (
@@ -41,9 +37,8 @@ const Firms = () => {
       </Typography>
       <FirmModalComp />
       {loading && <CardSkeleton/>}
-      {error && <ErrorMessage />}
-      {!error && !loading && !firms.length && <NoDataMessage />}
-      {!error && !loading && firms.length > 0 && 
+      {!loading && !firms.length && <NoDataMessage />}
+      {!loading && firms.length > 0 && 
       <Grid
         container
         justifyContent="center"

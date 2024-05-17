@@ -12,14 +12,11 @@ import Tooltip from "@mui/material/Tooltip";
 import { iconStyle } from "../styles/globalStyles";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
-import TableSkeleton, {
-  ErrorMessage,
-  NoDataMessage,
-} from "../components/DataFetchMessages"
+import TableSkeleton, { NoDataMessage } from "../components/DataFetchMessages"
 
 const Sales = () => {
-  const { getDatas, delDatas, emptyDatas } = useStockRequest();
-  const { sales, error, loading } = useSelector((state) => state.getDatas);
+  const { getDatas, delDatas } = useStockRequest();
+  const { sales, loading } = useSelector((state) => state.getDatas);
   const [open, setOpen] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
 
@@ -118,7 +115,6 @@ const Sales = () => {
     getDatas("sales");
     getDatas("products");
     getDatas("brands");
-    return () => {emptyDatas()}
   }, []);
 
   return (
@@ -135,9 +131,8 @@ const Sales = () => {
         <SaleModalComp />
       </Container>
       {loading && <TableSkeleton />}
-      {error && <ErrorMessage />}
-      {!error && !loading && !sales.length && <NoDataMessage />}
-      {!error && !loading && sales.length > 0 && 
+      {!loading && !sales.length && <NoDataMessage />}
+      {!loading && sales.length > 0 && 
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           autoHeight
