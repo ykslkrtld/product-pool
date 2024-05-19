@@ -1,12 +1,21 @@
-import useStockRequest from "../services/useStockRequest";
-
+import Charts from "../components/home/Charts"
+import KPICards from "../components/home/KPICards"
+import useStockRequest from "../services/useStockRequest"
+import { useEffect } from "react"
 
 const Home = () => {
-  const { getDatas } = useStockRequest();
+  const { getDatas } = useStockRequest()
 
+  useEffect(() => {
+    getDatas("sales")
+    getDatas("purchases")
+  }, [])
 
   return (
-    <div>Home</div>
+    <div>
+      <KPICards />
+      <Charts />
+    </div>
   )
 }
 
