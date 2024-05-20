@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
 import {
-  emptyStates,
   fetchFail,
   fetchStart,
   getDataSuccess,

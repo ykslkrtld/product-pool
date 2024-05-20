@@ -25,9 +25,9 @@ const BrandModalComp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("brands", brandInfo);
-    setBrandInfo({ name: "", image: "" });
-    setOpen(false);
+    handleClose()
   };
+  
   const handleClose = () => {
     setBrandInfo({
       name: "",

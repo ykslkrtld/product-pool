@@ -22,7 +22,7 @@ const ProductModalComp = () => {
     name: "",
   });
 
-  const { postDatas, getDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const { brands, categories } = useSelector((state) => state.getData);
 
@@ -33,15 +33,14 @@ const ProductModalComp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("products", productInfo);
-    setProductInfo({ categoryId: "", brandId: "", name: "" });
-    setOpen(false);
+    handleClose()
   };
 
   const handleClose = () => {
     setProductInfo({
         categoryId: "",
         brandId: "",
-      name: "",
+        name: "",
     });
     setOpen(false);
   };

@@ -2,14 +2,6 @@ import Alert from "@mui/material/Alert"
 import Skeleton from "@mui/material/Skeleton"
 import Stack from "@mui/material/Stack"
 
-export const ErrorMessage = () => {
-  return (
-    <Alert sx={{ mt: 3 }} severity="error">
-      Veriler çekilemedi
-    </Alert>
-  )
-}
-
 export const NoDataMessage = () => {
   return (
     <Alert sx={{ mt: 3 }} severity="warning">

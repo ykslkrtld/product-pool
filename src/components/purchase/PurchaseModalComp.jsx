@@ -24,7 +24,7 @@ const PurchaseModalComp = () => {
     price: ""
   });
 
-  const { postDatas, getDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const { brands, products, firms } = useSelector((state) => state.getData);
 
@@ -35,8 +35,7 @@ const PurchaseModalComp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("purchases", purchaseInfo);
-    setPurchaseInfo({ firmId: "", brandId: "", productId: "", quantity: "", price: ""});
-    setOpen(false);
+    handleClose()
   };
 
   const handleClose = () => {

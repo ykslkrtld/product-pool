@@ -23,7 +23,7 @@ const SaleModalComp = () => {
     price: ""
   });
 
-  const { postDatas, getDatas } = useStockRequest();
+  const { postDatas } = useStockRequest();
 
   const { brands, products } = useSelector((state) => state.getData);
 
@@ -34,8 +34,7 @@ const SaleModalComp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("sales", saleInfo);
-    setSaleInfo({ brandId: "", productId: "", quantity: "", price: ""});
-    setOpen(false);
+    handleClose()
   };
 
   const handleClose = () => {

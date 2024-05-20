@@ -27,8 +27,7 @@ const FirmModalComp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("firms", firmInfo);
-    setFirmInfo({ name: "", phone: "", address: "", image: "" });
-    setOpen(false);
+    handleClose()
   };
 
   const handleClose = () => {
