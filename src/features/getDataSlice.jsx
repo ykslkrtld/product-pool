@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const getDataSlice = createSlice({
-  name: "getDatas",
+  name: "getData",
   initialState,
   reducers: {
     fetchStart: (state) => {

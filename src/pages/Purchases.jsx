@@ -16,7 +16,7 @@ import TableSkeleton, { NoDataMessage } from "../components/DataFetchMessages"
 
 const Purchases = () => {
   const { getDatas, delDatas } = useStockRequest();
-  const { purchases, loading } = useSelector((state) => state.getDatas);
+  const { purchases, loading } = useSelector((state) => state.getData);
   const [open, setOpen] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
 
@@ -108,16 +108,16 @@ const Purchases = () => {
 
   const rows = purchases.map((purchase) => ({
     date: new Date(purchase.createdAt).toLocaleString(),
-    firm: purchase.firmId.name,
-    brand:  purchase.brandId.name,
-    product: purchase.productId.name,
+    firm: purchase.firmId ? purchase.firmId.name : "Unknown firm",
+    brand:  purchase.brandId ? purchase.brandId.name : "Unknown brand",
+    product: purchase.productId ? purchase.productId.name : "Unknown product",
     quantity: purchase.quantity,
     price: purchase.price,
     amount: purchase.amount,
     id: purchase._id,
-    firmId: purchase.firmId._id,
-    brandId: purchase.brandId._id,
-    productId: purchase.productId._id
+    firmId: purchase.firmId?._id,
+    brandId: purchase.brandId?._id,
+    productId: purchase.productId?._id
   }));
 
   useEffect(() => {

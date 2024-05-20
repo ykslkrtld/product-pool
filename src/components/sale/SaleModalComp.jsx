@@ -25,7 +25,7 @@ const SaleModalComp = () => {
 
   const { postDatas, getDatas } = useStockRequest();
 
-  const { brands, products } = useSelector((state) => state.getDatas);
+  const { brands, products } = useSelector((state) => state.getData);
 
   const handleChange = (e) => {
     setSaleInfo({ ...saleInfo, [e.target.name]: e.target.value });

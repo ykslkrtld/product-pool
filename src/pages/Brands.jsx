@@ -18,7 +18,7 @@ import { CardSkeleton, NoDataMessage } from "../components/DataFetchMessages"
 
 const Brands = () => {
   const { getDatas, delDatas } = useStockRequest();
-  const { brands, loading } = useSelector((state) => state.getDatas);
+  const { brands, loading } = useSelector((state) => state.getData);
   const [open, setOpen] = useState({});
   const [selectedBrand, setSelectedBrand] = useState(null);
 

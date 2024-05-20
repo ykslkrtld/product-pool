@@ -16,7 +16,7 @@ import TableSkeleton, { NoDataMessage } from "../components/DataFetchMessages"
 
 const Products = () => {
   const { getDatas, delDatas } = useStockRequest();
-  const { products, loading } = useSelector((state) => state.getDatas);
+  const { products, loading } = useSelector((state) => state.getData);
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -87,13 +87,13 @@ const Products = () => {
   ];
   
   const rows = products.map((product) => ({
-    brand: product.brandId.name,
-    category: product.categoryId.name,
+    brand: product.brandId ? product.brandId.name : "Unknown brand",
+    category: product.categoryId ? product.categoryId.name : "Unknown category",
     name: product.name,
     stock: product.quantity,
     id: product._id,
-    brandId: product.brandId._id,
-    categoryId: product.categoryId._id,
+    brandId: product.brandId?._id,
+    categoryId: product.categoryId?._id,
   }));
 
   useEffect(() => {

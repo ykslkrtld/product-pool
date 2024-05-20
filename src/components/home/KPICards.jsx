@@ -11,7 +11,7 @@ import { useSelector } from "react-redux"
 
 const KPICards = () => {
 
-  const { sales, purchases } = useSelector((state) => state.getDatas)
+  const { sales, purchases } = useSelector((state) => state.getData)
   const totalSales = sales?.reduce((acc, sale) => acc + sale.amount, 0)
   const totalPurchases = purchases?.reduce((acc, purchase) => acc + purchase.amount, 0)
 

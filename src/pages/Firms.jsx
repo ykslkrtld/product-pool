@@ -17,7 +17,7 @@ import { CardSkeleton, NoDataMessage} from "../components/DataFetchMessages"
 
 const Firms = () => {
   const { getDatas, delDatas } = useStockRequest();
-  const { firms, loading } = useSelector((state) => state.getDatas);
+  const { firms, loading } = useSelector((state) => state.getData);
   const [open, setOpen] = useState(false);
   const [selectedFirm, setSelectedFirm] = useState(null);
 

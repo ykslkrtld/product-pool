@@ -24,7 +24,7 @@ const ProductModalComp = () => {
 
   const { postDatas, getDatas } = useStockRequest();
 
-  const { brands, categories } = useSelector((state) => state.getDatas);
+  const { brands, categories } = useSelector((state) => state.getData);
 
   const handleChange = (e) => {
     setProductInfo({ ...productInfo, [e.target.name]: e.target.value });

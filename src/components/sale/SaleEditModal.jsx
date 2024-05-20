@@ -22,7 +22,7 @@ const SaleEditModal = ({open, setOpen, sale}) => {
 
   const { patchDatas, getDatas } = useStockRequest();
 
-  const { brands, products } = useSelector((state) => state.getDatas);
+  const { brands, products } = useSelector((state) => state.getData);
 
   const handleChange = (e) => {
     setSaleInfo({ ...saleInfo, [e.target.name]: e.target.value })

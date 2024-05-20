@@ -6,7 +6,7 @@ const dataFormatter = (number) =>
   `$${Intl.NumberFormat("us").format(number).toString()}`;
 
 const Charts = () => {
-  const { sales, purchases } = useSelector((state) => state.getDatas);
+  const { sales, purchases } = useSelector((state) => state.getData);
 
   const salesData = sales?.map((item) => ({
     date: new Date(item.createdAt).toLocaleDateString("tr-TR"),
