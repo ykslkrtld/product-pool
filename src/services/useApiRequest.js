@@ -25,11 +25,11 @@ const useApiRequest = () => {
       // );
       const { data } = await axiosPublic.post("/auth/login/", userData)
       dispatch(loginSuccess(data));
-      toastSuccessNotify("Giriş başarılı");
+      toastSuccessNotify("You have successfully logged in.");
       navigate("/stock")
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Giriş başarısız oldu");
+      toastErrorNotify("Failed to log in.");
       console.log(error);
     }
   }
@@ -43,11 +43,11 @@ const useApiRequest = () => {
       // );
       const { data } = await axiosPublic.post("/users/", userInfo)
       dispatch(registerSuccess(data));
-      toastSuccessNotify("Kayıt başarılı");
+      toastSuccessNotify("You have successfully registered.");
       navigate("/stock")
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Kayıt işlemi başarısız");
+      toastErrorNotify("Failed to register.");
       console.log(error);
     }
   }
@@ -61,11 +61,11 @@ const useApiRequest = () => {
       // });
       await axiosToken("/auth/logout")
       dispatch(logoutSuccess());
-      toastSuccessNotify("Çıkış başarılı"); 
+      toastSuccessNotify("You have successfully logged out."); 
       // navigate("/")
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Giriş başarısız oldu");
+      toastErrorNotify("Failed to log out.");
       console.log(error);
     }
   }

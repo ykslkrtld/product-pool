@@ -26,11 +26,11 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${endpoint}/${id}`);
-      toastSuccessNotify("Silme işlemi başarılı");
+      toastSuccessNotify("Deletion was successful.");
       getDatas(endpoint)
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Silme işlemi başarısız oldu");
+      toastErrorNotify("Deletion failed.");
       console.log(error);
     }
   };
@@ -39,11 +39,11 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.post(`/${endpoint}`, datas);
-      toastSuccessNotify("Ekleme işlemi başarılı");
+      toastSuccessNotify("Addition was successful.");
       getDatas(endpoint)
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Ekleme işlemi başarısız oldu");
+      toastErrorNotify("Addition failed.");
       console.log(error);
     }
   };
@@ -52,11 +52,11 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.patch(`/${endpoint}/${id}`, datas);
-      toastSuccessNotify("Düzenleme işlemi başarılı");
+      toastSuccessNotify("Editing was successful.");
       getDatas(endpoint)
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Düzenleme işlemi başarısız oldu");
+      toastErrorNotify("Editing failed.");
       console.log(error);
     }
   };

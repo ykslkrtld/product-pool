@@ -16,32 +16,31 @@ import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Register = () => {
-  // const navigate = useNavigate();
   const { register } = useApiRequest();
   let registerSchema = object({
     username: string()
-      .required("Kullanıcı adı zorunludur")
-      .matches(/^[a-zA-Z]+$/, "Kullanıcı adı sadece harf içermelidir")
-      .min(4, "Kullanıcı adı en az 4 karakterli olmalıdır")
-      .max(12, "Kullanıcı adı en fazla 12 karakterli olmalıdır"),
+      .required("Username is required")
+      .matches(/^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/, "Username must contain only letters")
+      .min(4, "Password must be at least 4 characters")
+      .max(12, "Password must be at most 12 characters"),
     firstName: string()
-      .required("Ad zorunludur")
-      .matches(/^[a-zA-Z]+$/, "Ad sadece harf içermelidir"),
+      .required("FirstName is required")
+      .matches(/^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/, "FirstName must contain only letters"),
     lastName: string()
-      .required("Soyad zorunludur")
-      .matches(/^[a-zA-Z]+$/, "Soyad sadece harf içermelidir"),
+      .required("LastName is required")
+      .matches(/^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/, "LastName must contain only letters"),
     email: string()
-      .email("Geçerli bir mail giriniz")
-      .required("Email zorunludur"),
+      .email("Please enter a valid email")
+      .required("Email is required"),
     password: string()
-      .required("Şifre zorunludur")
-      .matches(/[a-z]/, "Şifre en az 1 küçük harf içermelidir")
-      .matches(/[A-Z]/, "Şifre en az 1 büyük harf içermelidir")
-      .matches(/\d+/, "Şifre en az 1 rakam içermelidir")
-      // .matches(/[0-9]/, "Şifre en az 1 rakam içermelidir")
-      .matches(/[@$!%*?&]/, "Şifre @$!%*?& birini içermelidir")
-      .min(8, "Şifre en az 8 karakterli olmalıdır")
-      .max(12, "Şifre en fazla 12 karakterli olmalıdır"),
+      .required("Password is required")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/\d+/, "Password must contain at least one number")
+      // .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(/[@$!%*?&]/, "Password must contain one of @$!%*?&")
+      .min(8, "Password must be at least 8 characters")
+      .max(12, "Password must be at most 12 characters"),
   });
 
   const [showPassword, setShowPassword] = useState(false);

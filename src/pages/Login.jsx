@@ -16,20 +16,20 @@ import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
-  const {login} = useApiRequest()
+  const { login } = useApiRequest();
   let loginSchema = object({
     email: string()
-      .email("Geçerli bir mail giriniz")
-      .required("Email zorunludur"), // required veya email içi doldurularak hata mesajı değiştirilebilir
+      .email("Please enter a valid email")
+      .required("Email is required"), // required veya email içi doldurularak hata mesajı değiştirilebilir
     password: string()
-      .required("Şifre zorunludur")
-      .matches(/[a-z]/, "Şifre en az 1 küçük harf içermelidir")
-      .matches(/[A-Z]/, "Şifre en az 1 büyük harf içermelidir")
-      .matches(/\d+/, "Şifre en az 1 rakam içermelidir")
-      // .matches(/[0-9]/, "Şifre en az 1 rakam içermelidir")
-      .matches(/[@$!%*?&]/, "Şifre @$!%*?& birini içermelidir")
-      .min(8, "Şifre en az 8 karakterli olmalıdır")
-      .max(12, "Şifre en fazla 12 karakterli olmalıdır"),
+      .required("Password is required")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/\d+/, "Password must contain at least one number")
+      // .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(/[@$!%*?&]/, "Password must contain one of @$!%*?&")
+      .min(8, "Password must be at least 8 characters")
+      .max(12, "Password must be at most 12 characters"),
   });
 
   const [showPassword, setShowPassword] = useState(false);
