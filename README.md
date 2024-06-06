@@ -32,14 +32,14 @@ yarn start
 # Access the app at http://localhost:3000
 ```
 
-🔧 Usage
+## 🔧 Usage
 
-  - Admin Panel: Directly manage stock information.
-  - Product Management: Handle products with full CRUD capabilities.
-  - Graphical Insights: Utilize graphs for a clear view of stock trends.
+  - **Admin Panel:** Directly manage stock information.
+  - **Product Management:** Handle products with full CRUD capabilities.
+  - **Graphical Insights:** Utilize graphs for a clear view of stock trends.
 
 
-📁 Project Skeleton
+## 📁 Project Skeleton
 
 ```bash
 PRODUCT POOL
@@ -108,23 +108,23 @@ PRODUCT POOL
 └── yarn.lock
 ```
 
-🛠 Technologies Used
+## 🛠 Technologies Used
 
-  - React: For building dynamic user interfaces.
-  - Redux Toolkit & React Redux: For state management in a standardized manner.
-  - Axios: To handle API requests with ease.
-  - React Router DOM: For seamless navigation within the application.
-  - Material UI: For a rich set of pre-styled components.
-  - Formik & Yup: For form handling and validation.
-  - React Toastify: For elegant toast notifications.
-  - Redux Persist: To persist state across sessions.
-  - Tailwind CSS: For rapid and responsive UI development.
-  - MUI X Data Grid & Charts: For advanced data grids and charting solutions.
+  - **React:** For building dynamic user interfaces.
+  - **Redux Toolkit & React Redux:** For state management in a standardized manner.
+  - **Axios:** To handle API requests with ease.
+  - **React Router DOM:** For seamless navigation within the application.
+  - **Material UI:** For a rich set of pre-styled components.
+  - **Formik & Yup:** For form handling and validation.
+  - **React Toastify:** For elegant toast notifications.
+  - **Redux Persist:** To persist state across sessions.
+  - **Tailwind CSS:** For rapid and responsive UI development.
+  - **MUI X Data Grid & Charts:** For advanced data grids and charting solutions.
 
-🛠️ Dev Tools
+## 🛠️ Dev Tools
 
-  - Redux DevTools: Inspect actions and state changes for debugging.
+  - **Redux DevTools:** Inspect actions and state changes for debugging.
 
-🤝 Contributions
+## 🤝 Contributions
 
   I welcome contributions! If you find any bugs, have suggestions, or want to contribute, please open an issue or send a pull request. Your feedback and contributions are greatly appreciated.
