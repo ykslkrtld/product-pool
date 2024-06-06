@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import useStockRequest from "../../services/useStockRequest";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const FirmModalComp = () => {
   const [open, setOpen] = useState(false);
@@ -42,7 +42,7 @@ const FirmModalComp = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <Button variant="contained" sx={buttonStyle} onClick={() => setOpen(true)}>
         NEW FIRM
       </Button>
       <Modal
@@ -104,7 +104,7 @@ const FirmModalComp = () => {
               required
               type="url"
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               ADD FIRM
             </Button>
           </Box>

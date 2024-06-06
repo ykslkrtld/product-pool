@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const PurchaseModalComp = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ const PurchaseModalComp = () => {
     brandId: "",
     productId: "",
     quantity: "",
-    price: ""
+    price: "",
   });
 
   const { postDatas } = useStockRequest();
@@ -35,7 +35,7 @@ const PurchaseModalComp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postDatas("purchases", purchaseInfo);
-    handleClose()
+    handleClose();
   };
 
   const handleClose = () => {
@@ -44,14 +44,16 @@ const PurchaseModalComp = () => {
       brandId: "",
       productId: "",
       quantity: "",
-      price: ""
+      price: "",
     });
     setOpen(false);
   };
 
   return (
     <div>
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <Button
+        variant="contained" sx={buttonStyle} onClick={() => setOpen(true)}
+      >
         NEW PURCHASE
       </Button>
       <Modal
@@ -149,7 +151,7 @@ const PurchaseModalComp = () => {
               onChange={handleChange}
               required
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               ADD PURCHASE
             </Button>
           </Box>

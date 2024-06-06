@@ -7,7 +7,7 @@ import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@m
 import { useState } from "react";
 import useStockRequest from "../../services/useStockRequest";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const SaleEditModal = ({open, setOpen, sale}) => {
 
@@ -123,7 +123,7 @@ const handleClose = () => {
               onChange={handleChange}
               required
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               UPDATE SALE
             </Button>
           </Box>

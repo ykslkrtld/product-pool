@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import useStockRequest from "../../services/useStockRequest";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const FirmEditModal = ({open, setOpen, firm}) => {
 
@@ -102,7 +102,7 @@ const handleClose = () => {
               required
               type="url"
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               UPDATE FIRM
             </Button>
           </Box>

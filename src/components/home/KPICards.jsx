@@ -2,7 +2,7 @@ import Paper from "@mui/material/Paper"
 import Avatar from "@mui/material/Avatar"
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
-import { blue, orange, green } from "@mui/material/colors"
+import { purple, orange, green } from "@mui/material/colors"
 import PaidIcon from "@mui/icons-material/Paid"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoneyIcon from '@mui/icons-material/Money';
@@ -37,8 +37,8 @@ const KPICards = () => {
       title: "Purchases",
       amount: `$ ${totalPurchases.toLocaleString("tr-TR")}`,
       icon: <ShoppingCartIcon sx={{ fontSize: "1.8rem" }} />,
-      color: blue[700],
-      bgColor: blue[100],
+      color: purple[700],
+      bgColor: purple[100],
     },
   ]
   return (

@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const ProductModalComp = () => {
   const [open, setOpen] = useState(false);
@@ -47,7 +47,7 @@ const ProductModalComp = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <Button variant="contained" sx={buttonStyle} onClick={() => setOpen(true)}>
         NEW PRODUCT
       </Button>
       <Modal
@@ -118,7 +118,7 @@ const ProductModalComp = () => {
               onChange={handleChange}
               required
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               ADD PRODUCT
             </Button>
           </Box>

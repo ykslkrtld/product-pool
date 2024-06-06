@@ -2,7 +2,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/result.svg";
+import image from "../assets/Stock.png";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -25,7 +25,10 @@ const Register = () => {
       .max(12, "Password must be at most 12 characters"),
     firstName: string()
       .required("FirstName is required")
-      .matches(/^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/, "FirstName must contain only letters"),
+      .matches(
+        /^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/,
+        "FirstName must contain only letters"
+      ),
     lastName: string()
       .required("LastName is required")
       .matches(/^[a-zA-ZçğıöşüÇĞİÖŞÜ]+$/, "LastName must contain only letters"),
@@ -57,16 +60,16 @@ const Register = () => {
           p: 2,
         }}
       >
-        <Grid item xs={12}>
-          <Typography variant="h3" color="primary" align="center">
-            STOCK APP
+        <Grid item xs={12} mt={3}>
+          <Typography variant="h3" color="purple" align="center">
+            PRODUCT POOL
           </Typography>
         </Grid>
 
         <Grid item xs={12} sm={10} md={6}>
           <Avatar
             sx={{
-              backgroundColor: "secondary.light",
+              backgroundColor: "purple",
               m: "auto",
               width: 40,
               height: 40,
@@ -78,7 +81,7 @@ const Register = () => {
             variant="h4"
             align="center"
             mb={2}
-            color="secondary.light"
+            color="purple"
           >
             Register
           </Typography>
@@ -92,7 +95,6 @@ const Register = () => {
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
-
               register(values);
               actions.resetForm();
               actions.setSubmitting(false); // isSubmitting
@@ -167,15 +169,15 @@ const Register = () => {
                     onBlur={handleBlur}
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
-                    InputProps={{ 
+                    InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
-                            onClick={()=> setShowPassword((show) => !show)}
+                            onClick={() => setShowPassword((show) => !show)}
                             edge="end"
                           >
-                            {showPassword ? <Visibility /> : <VisibilityOff /> }
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -186,6 +188,13 @@ const Register = () => {
                     variant="contained"
                     disabled={isSubmitting}
                     size="large"
+                    sx={{
+                      backgroundColor: "purple",
+                      "&:hover": {
+                        color: "purple",
+                        backgroundColor: "white",
+                      },
+                    }}
                   >
                     Submit
                   </Button>
@@ -194,13 +203,13 @@ const Register = () => {
             )}
           </Formik>
 
-          <Box sx={{ textAlign: "center", mt: 2 }}>
+          <Box sx={{ textAlign: "center", mt: 2, color:"purple", textDecoration:"underline" }}>
             <Link to="/">Do you have an account?</Link>
           </Box>
         </Grid>
 
         <Grid item xs={0} sm={7} md={6}>
-          <Container>
+          <Container sx={{mt:"6rem"}}>
             <img src={image} alt="" />
           </Container>
         </Grid>

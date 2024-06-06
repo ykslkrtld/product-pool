@@ -108,7 +108,7 @@ const Products = () => {
       <Typography
         variant="subtitle1"
         fontSize={"1.8rem"}
-        color={"darkorange"}
+        color={"purple"}
         my={"1rem"}
       >
         Products

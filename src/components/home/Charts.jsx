@@ -57,7 +57,7 @@ const Charts = () => {
               data={purchasesData}
               index="date"
               categories={["amount"]}
-              colors={["blue"]}
+              colors={["purple"]}
               valueFormatter={dataFormatter}
               yAxisWidth={60}
             />

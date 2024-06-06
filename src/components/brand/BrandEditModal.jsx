@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import useStockRequest from "../../services/useStockRequest";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const BrandEditModal = ({open, setOpen, brand}) => {
 
@@ -80,7 +80,7 @@ const handleClose = () => {
               required
               type="url"
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               UPDATE BRAND
             </Button>
           </Box>

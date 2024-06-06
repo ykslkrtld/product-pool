@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import useStockRequest from "../../services/useStockRequest";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, buttonStyle } from "../../styles/globalStyles";
 
 const BrandModalComp = () => {
   const [open, setOpen] = useState(false);
@@ -38,7 +38,7 @@ const BrandModalComp = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <Button variant="contained" sx={buttonStyle} onClick={() => setOpen(true)}>
         NEW BRAND
       </Button>
       <Modal
@@ -82,7 +82,7 @@ const BrandModalComp = () => {
               required
               type="url"
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={buttonStyle}>
               ADD BRAND
             </Button>
           </Box>

@@ -1,6 +1,7 @@
 export const iconStyle = {
-  "&:hover": { color: "darkorange", cursor: "pointer" },
-}
+  color: "black",
+  "&:hover": { color: "purple", cursor: "pointer" },
+};
 
 export const modalStyle = {
   position: "absolute",
@@ -12,4 +13,12 @@ export const modalStyle = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
-}
+};
+
+export const buttonStyle = {
+  backgroundColor: "purple",
+  "&:hover": {
+    color: "purple",
+    backgroundColor: "white",
+  },
+};

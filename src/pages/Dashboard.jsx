@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline"
 import Divider from "@mui/material/Divider"
 import Drawer from "@mui/material/Drawer"
 import IconButton from "@mui/material/IconButton"
-
 import MenuIcon from "@mui/icons-material/Menu"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
@@ -48,7 +47,6 @@ function Dashboard(props) {
     </div>
   )
 
-  // Remove this const when copying and pasting into your project.
   const container =
     window !== undefined ? () => window().document.body : undefined
 
@@ -60,6 +58,7 @@ function Dashboard(props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          backgroundColor: "purple"
         }}
       >
         <Toolbar>
@@ -73,10 +72,14 @@ function Dashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Stock App
+            Product Pool
           </Typography>
           {user && (
-            <Button color="inherit" onClick={logout}>
+            <Button color="inherit" onClick={logout} sx={{
+              '&:hover': {
+                color:"purple", backgroundColor:"white",
+              },
+            }}>
               Logout
             </Button>
           )}
@@ -87,7 +90,6 @@ function Dashboard(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -116,7 +118,7 @@ function Dashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor: "secondary.main",
+              backgroundColor: "purple",
               // color: "white"
             },
           }}
