@@ -15,7 +15,7 @@ import useApiRequest from "../services/useApiRequest";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
+import { toastSuccessNotify } from "../helper/ToastNotify";
 
 
 const Login = () => {
@@ -36,6 +36,16 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("test@test.com")
+    toastSuccessNotify("Email copied!");
+  }
+
+  const copyPassword = () => {
+    navigator.clipboard.writeText("Test123?")
+    toastSuccessNotify("Password copied!");
+  }
 
   return (
     <Container maxWidth="lg">
@@ -97,9 +107,7 @@ const Login = () => {
                       
                       variant="body2"
                     >
-                      <ContentCopyIcon onClick={() => {
-                        navigator.clipboard.writeText("test@test.com");
-                      }}
+                      <ContentCopyIcon onClick={copyEmail}
                       style={{ cursor: "pointer" }}/>
                       test@test.com
                     </Typography>
@@ -119,9 +127,7 @@ const Login = () => {
                       
                       variant="body2"
                     >
-                      <ContentCopyIcon onClick={() => {
-                        navigator.clipboard.writeText("Test123?");
-                      }}
+                      <ContentCopyIcon onClick={copyPassword}
                       style={{ cursor: "pointer" }}/>
                       Test123?
                     </Typography>
