@@ -68,6 +68,24 @@ const handleClose = () => {
             flexDirection="column"
             gap="1rem"
           >
+                  <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Product</InputLabel>
+              <Select
+                name="productId"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={saleInfo.productId}
+                label="Product"
+                onChange={handleChange}
+                required
+              >
+                {products?.map((product) => (
+                  <MenuItem key={product._id} value={product._id}>
+                    {product.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Brand</InputLabel>
               <Select
@@ -86,25 +104,6 @@ const handleClose = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Product</InputLabel>
-              <Select
-                name="productId"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={saleInfo.productId}
-                label="Product"
-                onChange={handleChange}
-                required
-              >
-                {products?.map((product) => (
-                  <MenuItem key={product._id} value={product._id}>
-                    {product.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
             <TextField
               id="quantity"
               name="quantity"

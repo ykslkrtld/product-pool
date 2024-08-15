@@ -75,24 +75,6 @@ const SaleModalComp = () => {
             gap="1rem"
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Brand</InputLabel>
-              <Select
-                name="brandId"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={saleInfo.brandId}
-                label="Brand"
-                onChange={handleChange}
-                required
-              >
-                {brands?.map((brand) => (
-                  <MenuItem key={brand._id} value={brand._id}>
-                    {brand.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Product</InputLabel>
               <Select
                 name="productId"
@@ -106,6 +88,24 @@ const SaleModalComp = () => {
                 {products?.map((product) => (
                   <MenuItem key={product._id} value={product._id}>
                     {product.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Brand</InputLabel>
+              <Select
+                name="brandId"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={saleInfo.brandId}
+                label="Brand"
+                onChange={handleChange}
+                required
+              >
+                {brands?.map((brand) => (
+                  <MenuItem key={brand._id} value={brand._id}>
+                    {brand.name}
                   </MenuItem>
                 ))}
               </Select>
