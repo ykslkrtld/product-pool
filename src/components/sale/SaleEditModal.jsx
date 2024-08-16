@@ -47,6 +47,19 @@ const handleClose = () => {
   setOpen(false);
 };
 
+const productNamesCount = products.reduce((acc, product) => {
+  acc[product.name] = (acc[product.name] || 0) + 1;
+  return acc;
+}, {});
+
+const formattedProducts = products.map((product) => {
+  const isDuplicate = productNamesCount[product.name] > 1;
+  return {
+    ...product,
+    displayName: isDuplicate ? `${product.brandId.name} - ${product.name}` : product.name
+  };
+});
+
   return (
     <div>
       <Modal
@@ -85,7 +98,7 @@ const handleClose = () => {
                 <MenuItem sx={{borderBottom:"1px solid grey"}} onClick={()=> navigate("/stock/products")}>Add New Product</MenuItem>
                 {products?.map((product) => (
                   <MenuItem key={product._id} value={product._id}>
-                    {product.brandId.name + " - " + product.name}
+                    {product.displayName}
                   </MenuItem>
                 ))}
               </Select>
