@@ -8,8 +8,11 @@ import { useState } from "react";
 import useStockRequest from "../../services/useStockRequest";
 import { useSelector } from "react-redux";
 import { modalStyle, buttonStyle } from "../../styles/globalStyles";
+import { useNavigate } from "react-router-dom";
 
 const ProductEditModal = ({open, setOpen, product}) => {
+
+  const navigate = useNavigate()
 
   const { brandId, categoryId, id, name} = product
   console.log(product)
@@ -96,6 +99,7 @@ const handleClose = () => {
                 onChange={handleChange}
                 required
               >
+                <MenuItem sx={{borderBottom:"1px solid grey"}} onClick={()=> navigate("/stock/brands")}>Add New Brand</MenuItem>
                 {brands?.map((brand) => (
                   <MenuItem key={brand._id} value={brand._id}>
                     {brand.name}

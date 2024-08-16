@@ -12,8 +12,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
 import { modalStyle, buttonStyle } from "../../styles/globalStyles";
+import { useNavigate } from "react-router-dom";
+
 
 const ProductModalComp = () => {
+
+  const navigate = useNavigate()
+
   const [open, setOpen] = useState(false);
 
   const [productInfo, setProductInfo] = useState({
@@ -101,6 +106,7 @@ const ProductModalComp = () => {
                 onChange={handleChange}
                 required
               >
+                <MenuItem sx={{borderBottom:"1px solid grey"}} onClick={()=> navigate("/stock/brands")}>Add New Brand</MenuItem>
                 {brands?.map((brand) => (
                   <MenuItem key={brand._id} value={brand._id}>
                     {brand.name}
