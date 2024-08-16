@@ -10,12 +10,12 @@ const Charts = () => {
 
   const salesData = sales?.map((item) => ({
     date: new Date(item.createdAt).toLocaleDateString("tr-TR"),
-    amount: item.amount,
+    amount: item.price * item.quantity,
   }));
 
   const purchasesData = purchases?.map((item) => ({
     date: new Date(item.createdAt).toLocaleDateString("tr-TR"),
-    amount: item.amount,
+    amount: item.price * item.quantity,
   }));
   console.log(salesData);
   return (
