@@ -92,7 +92,7 @@ const SaleModalComp = () => {
                 <MenuItem sx={{borderBottom:"1px solid grey"}} onClick={()=> navigate("/stock/products")}>Add New Product</MenuItem>
                 {products?.map((product) => (
                   <MenuItem key={product._id} value={product._id}>
-                    {product.brandId.name + "-" + product.name}
+                    {product.brandId.name + " - " + product.name}
                   </MenuItem>
                 ))}
               </Select>
