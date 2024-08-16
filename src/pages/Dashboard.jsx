@@ -22,7 +22,6 @@ function Dashboard(props) {
   const [isClosing, setIsClosing] = React.useState(false)
 
   const { user } = useSelector((state) => state.auth)
-  console.log(user)
   const { logout } = useApiRequest()
 
   const handleDrawerClose = () => {
@@ -76,7 +75,7 @@ function Dashboard(props) {
             Product Pool
           </Typography>
           {user && ( <>
-            <Typography>deneme</Typography>
+            <Typography>{user}</Typography>
             <Button color="inherit" onClick={logout} sx={{
               '&:hover': {
                 color:"purple", backgroundColor:"white",

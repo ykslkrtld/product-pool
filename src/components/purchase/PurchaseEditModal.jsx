@@ -29,8 +29,6 @@ const PurchaseEditModal = ({open, setOpen, purchase}) => {
 
   const { brands, products, firms } = useSelector((state) => state.getData);
 
-  console.log(products)
-
   const handleChange = (e) => {
     setPurchaseInfo({ ...purchaseInfo, [e.target.name]: e.target.value })
   }
