@@ -113,7 +113,7 @@ const Purchases = () => {
     product: purchase.productId ? purchase.productId.name : "Unknown product",
     quantity: purchase.quantity,
     price: purchase.price,
-    amount: purchase.amount,
+    amount: purchase.price * purchase.quantity,
     id: purchase._id,
     firmId: purchase.firmId?._id,
     brandId: purchase.brandId?._id,
