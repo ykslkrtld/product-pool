@@ -146,7 +146,7 @@ const PurchaseModalComp = () => {
                 required
               >
                 <MenuItem sx={{borderBottom:"1px solid grey"}} onClick={()=> navigate("/stock/products")}>Add New Product</MenuItem>
-                {products?.map((product) => (
+                {formattedProducts?.map((product) => (
                   <MenuItem key={product._id} value={product._id}>
                     {product.displayName}
                   </MenuItem>
