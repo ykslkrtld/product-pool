@@ -66,22 +66,22 @@ const Products = () => {
           sx={iconStyle}
         />
         </Tooltip>,
-        <Tooltip title="Edit" arrow>
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          onClick={() => {
-            setOpen(true);
-            setSelectedProduct(props.row.id);
-          }}
-          label="Edit"
-          sx={iconStyle}
-        />
-        </Tooltip>,
-        <ProductEditModal
-          open={open && selectedProduct === props.row.id}
-          setOpen={setOpen}
-          product={props.row}
-        />,
+        // <Tooltip title="Edit" arrow>
+        // <GridActionsCellItem
+        //   icon={<EditIcon />}
+        //   onClick={() => {
+        //     setOpen(true);
+        //     setSelectedProduct(props.row.id);
+        //   }}
+        //   label="Edit"
+        //   sx={iconStyle}
+        // />
+        // </Tooltip>,
+        // <ProductEditModal
+        //   open={open && selectedProduct === props.row.id}
+        //   setOpen={setOpen}
+        //   product={props.row}
+        // />,
       ],
     },
   ];
