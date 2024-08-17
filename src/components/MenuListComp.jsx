@@ -10,6 +10,8 @@ import StoreIcon from "@mui/icons-material/Store"
 import StarsIcon from "@mui/icons-material/Stars"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { useNavigate } from "react-router-dom"
+import image from "../assets/Stock.png";
+import { Box, Container } from "@mui/material"
 
 const MenuListComp = () => {
   const navigate = useNavigate()
@@ -45,10 +47,15 @@ const MenuListComp = () => {
       iconName: <InventoryIcon />,
       path: "/stock/products/",
     },
+    {
+      title: "Users",
+      iconName: <InventoryIcon />,
+      path: "/stock/products/",
+    },
   ]
 
   return (
-    <div>
+    <Box>
       <List>
         {icons.map((item, index) => (
           <ListItem
@@ -64,7 +71,10 @@ const MenuListComp = () => {
           </ListItem>
         ))}
       </List>
-    </div>
+      <Container sx={{marginTop:"2rem"}}>
+        <img src={image} alt="img" />
+      </Container>
+    </Box>
   )
 }
 

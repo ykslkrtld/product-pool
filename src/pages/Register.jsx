@@ -42,8 +42,7 @@ const Register = () => {
       .matches(/\d+/, "Password must contain at least one number")
       // .matches(/[0-9]/, "Password must contain at least one number")
       .matches(/[@$!%*?&]/, "Password must contain one of @$!%*?&")
-      .min(8, "Password must be at least 8 characters")
-      .max(12, "Password must be at most 12 characters"),
+      .min(8, "Password must be at least 8 characters"),
   });
 
   const [showPassword, setShowPassword] = useState(false);
