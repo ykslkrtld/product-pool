@@ -47,11 +47,6 @@ const MenuListComp = () => {
       iconName: <InventoryIcon />,
       path: "/stock/products/",
     },
-    {
-      title: "Users",
-      iconName: <InventoryIcon />,
-      path: "/stock/products/",
-    },
   ]
 
   return (
