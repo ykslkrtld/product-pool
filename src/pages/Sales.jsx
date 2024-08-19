@@ -105,7 +105,7 @@ const Sales = () => {
     product: sale.productId ? sale.productId.name : "Unknown product",
     quantity: sale.quantity,
     price: sale.price,
-    amount: sale.price * sale.quantity,
+    amount: sale.amount,
     id: sale._id,
     brandId: sale.brandId?._id,
     productId: sale.productId?._id,

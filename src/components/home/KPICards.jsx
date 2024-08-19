@@ -12,8 +12,8 @@ import { useSelector } from "react-redux"
 const KPICards = () => {
 
   const { sales, purchases } = useSelector((state) => state.getData)
-  const totalSales = sales?.reduce((acc, sale) => acc + sale.price * sale.quantity, 0)
-  const totalPurchases = purchases?.reduce((acc, purchase) => acc + purchase.price * purchase.quantity, 0)
+  const totalSales = sales?.reduce((acc, sale) => acc + sale.amount, 0)
+  const totalPurchases = purchases?.reduce((acc, purchase) => acc + purchase.amount, 0)
 
   const kpiData = [
     {

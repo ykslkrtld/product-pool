@@ -113,12 +113,14 @@ const Purchases = () => {
     product: purchase.productId ? purchase.productId.name : "Unknown product",
     quantity: purchase.quantity,
     price: purchase.price,
-    amount: purchase.price * purchase.quantity,
+    amount: purchase.amount,
     id: purchase._id,
     firmId: purchase.firmId?._id,
     brandId: purchase.brandId?._id,
     productId: purchase.productId?._id
   }));
+
+  console.log(rows)
 
   useEffect(() => {
     getDatas("purchases");
