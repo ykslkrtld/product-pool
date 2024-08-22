@@ -74,8 +74,8 @@ function Dashboard(props) {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Product Pool
           </Typography>
-          {user && ( <>
-            <Typography>{user}</Typography>
+          {user && ( <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} >
+            <Typography color={"orange"}>Welcome {user}</Typography>
             <Button color="inherit" onClick={logout} sx={{
               '&:hover': {
                 color:"purple", backgroundColor:"white",
@@ -83,7 +83,7 @@ function Dashboard(props) {
             }}>
               Logout
             </Button>
-            </>
+            </Box>
           )}
         </Toolbar>
       </AppBar>
